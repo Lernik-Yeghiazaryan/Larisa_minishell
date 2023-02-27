@@ -117,14 +117,11 @@ static int	check_redir(char *s, t_env	**en)
 }
 
 static int	unexp_symv(char *tmp, int i, t_env **en)
-{
-	//Larisa es incher es arel, AAAAAAAAAAA  echo "cat < a | > b"
-	if (tmp[i] == '\0' || ft_strchr("|&;()", tmp[i]))
+{	if (tmp[i] == '\0' || ft_strchr("|&;()", tmp[i]))
 	{
 		if (tmp[i] == '\0' || ft_strchr("|&;()", tmp[i]))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-			// printf("minishell: syntax error near unexpected token\n");//layisyaaaaaaa syntax errory write-ov kanes fd-n 2 ktas
 			set_exit_code("258", en);
 			return (1);
 		}

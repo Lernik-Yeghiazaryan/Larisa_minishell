@@ -17,12 +17,10 @@ char	**ft_clean(char **str, t_env **envir)
 	int	i;
 	int	f;
 	int	t;
-	// char *tmp;
 
 	i = 0;
 	f = 0;
 	t = 0;
-	// tmp = NULL;
 	while (str && str[i])
 	{
 		str[i] = ft_strtrim(str[i], SPACES, &f);

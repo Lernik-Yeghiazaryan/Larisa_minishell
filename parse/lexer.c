@@ -32,22 +32,6 @@ static int	pipe_count(char *line)
 			ignore_quotes(line, &i);
 		if (!line[i])
 			break ;
-		//Lernona grel
-		// if (line[i] == '\"')
-		// {
-		// 	while (line[++i] && line[i] != '\"')
-		// 		;
-		// 	++i;	
-		// }
-		// else if (line[i] == '\'')
-		// {
-		// 	while (line[++i] && line[i] != '\'')
-		// 		;
-		// 	++i;	
-		// }
-		// if (line && line[i] == '\0')
-		// 	break ;
-		//esqany
 		if (line[i] == '|')
 			count++;
 		i++;
@@ -81,15 +65,6 @@ int ft_check_pipe(char *str)
 
 static int	checks(char *str, t_env **en)
 {
-	// int	i = 0;
-	// while(str && str[i])
-	// 	if (is_space(str[i]))
-	// 		++i;
-	// if (!str[i])
-	// 	{
-	// 		set_exit_code("258", en);//esi sirun implementacnenq tex chgravi, hetoel es kodov exity chi ashxatum
-	// 		return (1);
-	// 	}            //u mekel es printfy write petqa lini kareliya sirun funkya grel tox tal u exiti tivy inqy arandzin ani tex chgravi
 	if (checkquotes(str))
 	{
 		printf("Syntax error: the number of quotes is incorrect\n");
@@ -120,7 +95,7 @@ t_node	*lexer(char *str, t_env **en)
 	while (sp && sp[i])
 	{
 		new = malloc(sizeof(t_node));
-		init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum, sp-n el
+		init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum
 		ft_list_add_back(&node, new);
 		++i;
 	}

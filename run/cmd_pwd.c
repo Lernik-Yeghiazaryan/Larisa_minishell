@@ -15,7 +15,9 @@
 int	cmd_pwd(t_env **en)
 {
 	char	cwd[256];
+	char	*path;
 
+	path = NULL;
 	if (!(getcwd(cwd, sizeof(cwd))))
 	{
 		set_exit_code("1", en);
@@ -23,6 +25,10 @@ int	cmd_pwd(t_env **en)
 		return (-1);
 	}
 	else
-		printf("%s\n", get_current_path());
+	{
+		path = get_current_path();
+		printf("%s\n", path);
+		free(path);
+	}
 	return (0);
 }

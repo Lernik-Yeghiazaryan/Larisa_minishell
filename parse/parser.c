@@ -84,7 +84,7 @@ t_node	*parser(t_node *head, t_env **envir)
 		return (0);
 	ft_clean_sp_redir(head); //estexic maqruma
 	ft_clean_spasec(head, envir);     
-	print_node(head);
+	// print_node(head);
 	return (head);
 }
 

@@ -73,7 +73,7 @@ void	status_wait(int status, int exec_status, t_env **en)
 	char *str;
 
 	str = ft_itoa(WEXITSTATUS(status));
-	printf("str = %s\n", str);
+	// printf("str = %s\n", str);
 	if (WIFEXITED(status) && exec_status == 0)
 		set_exit_code(str, en);
 	if (str)

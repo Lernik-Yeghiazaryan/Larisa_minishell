@@ -27,17 +27,21 @@ int	check_valid_identif(char *str, t_env **en)
 		array = ft_split(str, '=');
 	if (!array[0])
 	{
-		free(array);
+		// free_arr(array);
 		return (0);
 	}
-	while (array[0] && array[0][i] && i++)
+	i = 0;
+	while (array[0] && array[0][i])
 	{
-		if (!check_valid(str[i]))
+		if (!check_valid(array[0][i]))
 		{
 			set_exit_code("1", en);
+			// free_arr(array);
 			return (0);
 		}
+		i++;
 	}
+	// free_arr(array);
 	return (1);
 }
 
@@ -63,6 +67,7 @@ void	pluse_equal_2(char *cmd, t_env **en, char **array)
 		set_exit_code("1", en);
 		return ;
 	}
+	// free_arr(array);
 	array = ft_split_export(cmd, '+');
 	array[1]++;
 	pluse_equal(array, en);

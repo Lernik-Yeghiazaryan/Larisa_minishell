@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/lgalstya/Desktop/minishell/readline-master
+BUILD_DIR = /home/lyeghia/Desktop/Larisa_minishell/readline-master
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/lgalstya/Desktop/minishell/readline_larisa
+prefix = /home/lyeghia/Desktop/Larisa_minishell/readline_larisa
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

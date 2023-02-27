@@ -3,20 +3,20 @@ DIRS	= run parse
 SRCS	= $(shell find ${DIRS} -name "*.c")
 OBJS	= $(SRCS:.c=.o)
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -I ./headers #-fsanitize=address -g
-LINKER	= -L./readline_larisa/lib -lreadline
-INCLUDE	= -I ./headers -I./readline_larisa/include
+CFLAGS	= -g -Wall -Wextra -Werror -I ./headers #-fsanitize=address -g
+#LINKER	= -L./readline_larisa/lib -lreadline
+#INCLUDE	= -I ./headers #-I./readline_larisa/include
 READFL  = -lreadline
 RD		= ${shell find ${HOME} -name readline_larisa 2>/dev/null}
 RM		= rm -f
 
 %.o : %.c
-	${CC} ${CFLAGS} ${INCLUDE} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all : ${NAME}
 
 ${NAME} : ${OBJS}
-	${CC} ${CFLAGS} ${READFL} ${OBJS} ${LINKER} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} ${READFL} -o ${NAME}
 
 clean : 
 	${RM} ${OBJS}

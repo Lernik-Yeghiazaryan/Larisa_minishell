@@ -38,17 +38,26 @@ char	**list_to_char(t_env *env)
 	{
 		if (env->key)
 		{
-			tmp = ft_strjoin(env->key, "=");
-			res[i] = tmp;
-			free(tmp);
-			tmp = NULL;
+			// tmp = ft_strjoin(env->key, "=");
+			res[i] = ft_strjoin(env->key, "=");//tmp;
+			// printf("1:i = %d\t", i);
+			// printf("1:res[%d] = %s\n", i, res[i]);
+			// free(tmp);
+			// tmp = NULL;
+			// printf("2:res[%d] = %s\n", i, res[i]);
 		}
 		if (env->value)
 		{
-			tmp = ft_strjoin(res[i], env->value);
-			res[i] = tmp;
+			// tmp = ft_strjoin(res[i], env->value);
+			tmp = ft_strdup(res[i]);
+			free(res[i]);
+			res[i] = ft_strjoin(tmp, env->value);//tmp;
 			free(tmp);
 			tmp = NULL;
+			// printf("2:i = %d\n", i);
+			// printf("2:res[%d] = %s\n", i, res[i]);
+			// free(tmp);
+			// tmp = NULL;
 		}
 		i++;
 		env = env->next;

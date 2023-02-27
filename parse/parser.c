@@ -21,7 +21,7 @@ void	print_node(t_node *node)
 	{
 		while (node->cmd && node->cmd[i])
 		{
-			printf("cmd%d=%s|\n", i, node->cmd[i]);
+			printf("cmd[%d] = |%s|\n", i, node->cmd[i]);
 			i++;
 		}
 		i = 0; 

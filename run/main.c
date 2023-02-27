@@ -58,6 +58,8 @@ void free_node(t_node *node)
 			free_arr(node->cmd);
 		node = node->next;
 	}
+	free(node);
+	node = NULL;
 }
 
 void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
@@ -80,7 +82,7 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 		if (!node)
 			continue ;
 		node = parser(node, &envir);
-		system("leaks minishell");
+		// system("leaks minishell");
 		if (!node)
 			continue ;
 		take_pars_val(node, &envir, in_cpy, out_cpy);

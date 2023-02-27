@@ -148,7 +148,7 @@ int	unexpected_tokens(t_node *node, t_env **en)
 		ignore_quotes(node->readline, &i);
 		if (!curr[i])
 			return (0);
-			if (curr[i] && ft_strchr("|&;()", curr[i]))
+		if (curr[i] && ft_strchr("|&;()", curr[i]))
 		{
 			if (unexp_symv(curr, i, en))
 				return (1);

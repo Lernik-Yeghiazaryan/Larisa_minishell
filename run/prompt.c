@@ -26,15 +26,18 @@ char	*accses_to_exec(char *cmd, char *path)
 	{
 		tmp = ft_strjoin("/", cmd);
 		cmd = tmp;
-		free(tmp);
-		tmp = NULL;
+		// free(tmp);
+		// tmp = NULL;
 	}
 	while (token[i])
 	{
 		cmd_accs = ft_strjoin(token[i], cmd);
-		cmd_accs = tmp;
-		free(tmp);
-		tmp = NULL;
+		// cmd_accs = tmp;
+		// free(tmp);
+		// tmp = NULL;
+		// printf("cmd = %s\n", cmd);
+		// printf("token[%d] = %s\n", i, token[i]);
+		// printf("cmd_accs = %s\n", cmd_accs);
 		if (access(cmd_accs, 0) == 0)
 			return (cmd_accs);
 		i++;
@@ -67,8 +70,17 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 
 void	status_wait(int status, int exec_status, t_env **en)
 {
+	char *str;
+
+	str = ft_itoa(WEXITSTATUS(status));
+	printf("str = %s\n", str);
 	if (WIFEXITED(status) && exec_status == 0)
-		set_exit_code(ft_itoa(WEXITSTATUS(status)), en);
+		set_exit_code(str, en);
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
 }
 
 void	exit_for_norm(t_env **env)
@@ -103,5 +115,6 @@ int	commands(t_node node, t_env **envir)
 		signal(SIGINT, &handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
+	free_arr(ch_env);
 	return (exec_status);
 }

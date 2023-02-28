@@ -83,7 +83,7 @@ t_node	*parser(t_node *head, t_env **envir)
 	if (check_quote_2(head, envir) || unexpected_tokens(head, envir) || !initialize(head) ) //kam kareliya estex free-i funkcyan kanchel woncor es 3um el malloc ka
 		return (0);
 	ft_clean_sp_redir(head); //estexic maqruma
-	ft_clean_spasec(head, envir);     
+	// ft_clean_spasec(head, envir);     
 	// print_node(head);
 	return (head);
 }

@@ -40,6 +40,12 @@ char	*accses_to_exec(char *cmd, char *path)
 		// printf("cmd_accs = %s\n", cmd_accs);
 		if (access(cmd_accs, 0) == 0)
 			return (cmd_accs);
+		else
+		{
+			//es em avlacrel
+			free(cmd_accs);
+			cmd_accs = NULL;
+		}
 		i++;
 	}
 	free_arr(token);
@@ -65,6 +71,8 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 		ret = execve(cmd, node.cmd, ch_env);
 	if (ret == -1)
 		not_found_error(node.cmd[0], envir);
+	// free(cmd);
+	// cmd = NULL;
 	return (ret);
 }
 

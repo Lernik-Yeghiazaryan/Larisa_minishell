@@ -80,26 +80,31 @@ static int	checks(char *str, t_env **en)
 	return (0);
 }
 
-t_node	*lexer(char *str, t_env **en)
+void	lexer(t_node **node, char *str, t_env **en)
 {
 	int		i;
 	char	**sp;
-	t_node	*node;
 	t_node	*new;
 
 	i = 0;
-	node = NULL;
+	*node = NULL;
 	if (checks(str, en))
-		return (0);
+		return ;
 	sp = pars_ft_split(str, '|');
 	while (sp && sp[i])
 	{
 		new = malloc(sizeof(t_node));
-		init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum
-		ft_list_add_back(&node, new);
+		new->readline = ft_strdup(sp[i]);
+		new->next = NULL;
+		// init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum
+		// printf("///readline = %s\n", new->readline);
+		ft_list_add_back(node, new);
+		// printf("AKSLSKLDJLJDLAD\n");
 		++i;
 	}
-	node->counts.s_pipe = pipe_count(str);
+	(*node)->counts.s_pipe = pipe_count(str);
+	// free(node->readline);
+	// free(node);
 	free_arr(sp);
-	return (node);
+	// return (node);
 }

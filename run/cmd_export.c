@@ -115,7 +115,7 @@ static void	cmd_one_export(char *cmd, t_env **en)
 	}
 	else
 		add_only(cmd, en);
-		free_arr(array);
+	free_arr(array);
 }
 
 void	cmd_export(t_node node, t_env **en)

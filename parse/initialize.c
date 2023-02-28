@@ -41,7 +41,7 @@ int	initial_nodes(t_node *node)
 	}
 	node->cmd = pars_ft_split(node->readline, ' '); // sranica vor ( "aaaa   "a ) chi ashxatum 
 	ft_wcount(node->readline, ' ');
-	free(node->readline);
+	// free(node->readline);
 	// printf(RED "str %s\n", node->cmd[0]);
 	// printf(RED "str %s\n", node->cmd[1]);
 	// printf(ESC_WHITE);

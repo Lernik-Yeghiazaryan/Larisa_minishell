@@ -36,12 +36,12 @@ int	check_valid_identif(char *str, t_env **en)
 		if (!check_valid(array[0][i]))
 		{
 			set_exit_code("1", en);
-			// free_arr(array);
+			free_arr(array);
 			return (0);
 		}
 		i++;
 	}
-	// free_arr(array);
+	free_arr(array);
 	return (1);
 }
 

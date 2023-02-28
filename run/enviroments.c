@@ -15,6 +15,12 @@
 void	ft_inint_env(char *elem1, char *elem2, t_env *node)
 {
 	node->key = ft_strdup(elem1);
+	// printf("node->value = %s\n", node->value);
+	if (node->value)
+	{
+		free(node->value);
+		node->value = NULL;
+	}
 	node->value = ft_strdup(elem2);
 	node->next = NULL;
 }

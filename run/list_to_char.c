@@ -34,6 +34,7 @@ char	**list_to_char(t_env *env)
 	i = 0;
 	tmp = NULL;
 	res = malloc(sizeof(char *) * (ft_lst_size(env) + 1));
+	// printf("lst_size = %d\n", (ft_lst_size(env) + 1));
 	while (env)
 	{
 		if (env->key)

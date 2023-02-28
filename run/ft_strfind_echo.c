@@ -17,10 +17,8 @@ int	check_valid(char c)
 	if (c == '_' || (c >= '0' && c <= '9')
 		|| (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		{
-			printf("%c, aaaa\n", c);
 			return (1);
 		}
-	printf("%c, aaaa\n", c);
 	return (0);
 }
 

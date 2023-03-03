@@ -54,25 +54,40 @@ void	ft_pipe(t_node *node, t_env **envir)
 	int	child;
 	int	i;
 	int	n;
+	int	*pid;
 
 	i = -1;
+	// node->pid = 0;
 	n = node_len(node);
 	fds = ft_calloc(sizeof(int *), node->counts.s_pipe + 1);
+	pid = malloc(sizeof(int) * n);
 	ft_filedisc_init(fds, n);
 	while (++i < n)
 	{
-		child = fork();
-		if (child == -1)
-			child_error(child, i);
-		else if (child == 0)
+		ft_redirs(node);
+		pid[i] = fork();
+		if (pid[i] == -1)
+			child_error(pid[i], i);
+		else if (pid[i] == 0)
 		{
 			child_process(fds, i, n);
-			commands(*node, envir);
-			exit(1);
+			child = command_for_pipe(*node, envir);
+			exit(child);
 		}
 		node = node->next;
 	}
 	ft_close(fds, n);
-	while (wait(0) != -1)
-		;
+	int ret;
+		printf("AAAA\n");
+	i = -1;
+	while (++i < n)
+	{
+		waitpid(pid[i], &ret, 0);
+		if (WIFEXITED(ret) != 0)
+			set_exit_code(ft_itoa(WEXITSTATUS(ret)), envir);
+	}
+	
+
+	// while (wait(0) != -1)
+	// 	;
 }

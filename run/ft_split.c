@@ -48,7 +48,7 @@ char	**ft_split_export(char *s, char c)
 	int		start;
 
 	start = -1;
-	tab = malloc(sizeof(char **) * 3);
+	tab = (char **)malloc(sizeof(char *) * 3);
 	if (!(tab) || !s)
 		return (0);
 	while (s[++start])

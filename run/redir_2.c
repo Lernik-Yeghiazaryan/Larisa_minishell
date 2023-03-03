@@ -41,10 +41,10 @@ void	ft_infile(t_node *node)
 			if (i == ft_arrlen(node->infile) - 1)
 			{
 				printf("%s\n", node->infile[i]);
-				cmd_infile(node->infile[i], 0);
+				cmd_infile(node->infile[i], node);
 			}
 			else
-				cmd_infile(node->infile[i], 1);
+				cmd_no_infile(node->infile[i], node);
 		}
 	}
 }
@@ -81,12 +81,15 @@ void	ft_append(t_node *node)
 				cmd_append(node->append[i], 0);
 		}
 	}
-}	
+}
 
 void	ft_redirs(t_node *node)
 {
+	node->inf_err_code = 0;
+	node->inf_stat = 0;
 	ft_heredoc(node);
 	ft_infile(node);
 	ft_outfile(node);
 	ft_append(node);
+	
 }

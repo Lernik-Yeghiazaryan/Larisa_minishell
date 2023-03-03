@@ -49,7 +49,7 @@ void free_node(t_node *node)
 	while (node)
 	{
 		tmp = node->next;
-		printf("heredoc = %s\n", node->heredoc[0]);
+		// printf("heredoc = %s\n", node->heredoc[0]);
 		if (node->heredoc)
 			free_arr(node->heredoc);
 		if (node->append)
@@ -67,7 +67,6 @@ void free_node(t_node *node)
 		node = tmp;
 	}
 	// free(node);
-	printf("LALALALAL\n");
 }
 
 void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
@@ -75,8 +74,6 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 	char	*line;
 
 	line = NULL;
-	(void) in_cpy;
-	(void) out_cpy;
 	while (1)
 	{
 		printf(ESC_GREEN);
@@ -86,9 +83,12 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 		if (line[0])
 			add_history(line);
 		else
+		{
+			free(line);
 			continue ;
+		}
 		lexer(&node, line, &envir);
-		printf("readline = %s\n", node->readline);
+		// printf("readline = %s\n", node->readline);
 		free(line);
 		line = NULL;
 		if (!node)

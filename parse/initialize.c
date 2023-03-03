@@ -39,7 +39,7 @@ int	initial_nodes(t_node *node)
 	{
 		return (1); // petqa maqrel error tpel u durs gal erevi bayc myus funkcyayum ereviiiiiii
 	}
-	node->cmd = pars_ft_split(node->readline, ' '); // sranica vor ( "aaaa   "a ) chi ashxatum 
+	node->cmd = pars_ft_split(node->readline, ' '); // sranica vor ( "aaaa   "a ) chi ashxatum
 	ft_wcount(node->readline, ' ');
 	// free(node->readline);
 	// printf(RED "str %s\n", node->cmd[0]);

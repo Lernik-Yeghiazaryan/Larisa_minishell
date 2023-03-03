@@ -34,6 +34,8 @@ typedef struct s_node
 	char			**outfile;
 	char			**cmd;
 	struct s_node	*next;
+	int				inf_err_code;
+	int				inf_stat;
 	int				pid;
 }					t_node;
 

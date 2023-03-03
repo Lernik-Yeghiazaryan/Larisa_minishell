@@ -107,9 +107,9 @@ int	commands(t_node node, t_env **envir)
 	exec_status = 0;
 	ch_env = list_to_char(*envir);
 	ft_redirs(&node);
-	if (is_builtin(node.cmd[0]))
+	if (node.cmd && node.cmd[0] != NULL && is_builtin(node.cmd[0]))
 		exec_status = builtin(node, envir);
-	else
+	else if (node.inf_stat != -1)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -123,6 +123,32 @@ int	commands(t_node node, t_env **envir)
 		signal(SIGINT, &handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
+
 	free_arr(ch_env);
+	return (exec_status);
+}
+
+
+int	command_for_pipe(t_node node, t_env **envir)
+{
+	int		exec_status;
+	char	**ch_env;
+
+	exec_status = 0;
+	ch_env = list_to_char(*envir);
+	if (node.cmd && node.cmd[0] != NULL && is_builtin(node.cmd[0]))
+		exec_status = builtin(node, envir);
+	else if (node.inf_stat != -1)
+	{
+		exec_status = child_proc(node, envir, ch_env);
+		if (exec_status < 0)
+			exit_for_norm(envir);
+		signal(SIGINT, &handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+
+	free_arr(ch_env);
+	if (exec_status < 0)
+		return (127);
 	return (exec_status);
 }

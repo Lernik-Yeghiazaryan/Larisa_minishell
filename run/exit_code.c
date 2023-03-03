@@ -42,7 +42,8 @@ void	set_exit_code(char *value, t_env **en)
 	{
 		if (!ft_strcmp(curr->key, "?"))
 		{
-			curr->value = value;
+			free(curr->value);
+			curr->value = ft_strdup(value);
 			flag = 1;
 		}
 		curr = curr->next;

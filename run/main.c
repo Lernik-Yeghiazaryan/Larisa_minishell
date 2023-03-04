@@ -105,7 +105,9 @@ int	second_hook(void)
 	return (0);
 }
 //harcnel unset Path ls i pahy
-
+// sxal path tal cd  in
+// setenv
+// dollar
 int	main(int argc, char **argv, char **env)
 {
 	t_node	*node;

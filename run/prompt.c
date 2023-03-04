@@ -64,7 +64,7 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 	signal(SIGTSTP, SIG_IGN);
 	ret = 0;
 	path = search_list(*envir, "PATH");
-		cmd = accses_to_exec(node.cmd[0], path);
+	cmd = accses_to_exec(node.cmd[0], path);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
 		ret = execve(node.cmd[0], node.cmd, ch_env);
 	else
@@ -73,7 +73,6 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 		not_found_error(node.cmd[0], envir);
 	// free(cmd);
 	// cmd = NULL;
-	printf("ret %d\n", ret);
 	return (ret);
 }
 

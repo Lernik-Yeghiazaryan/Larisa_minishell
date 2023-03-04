@@ -43,11 +43,7 @@ void	ft_clean_spasec(t_node *head, t_env **envir)
 
 	node = head;
 		if (node->cmd)
-		{
-			puts("heloooooooo");
-			printf("%s\n", node->cmd[0]);
 			node->cmd = ft_clean(node->cmd, envir);
-		}
 		if (node->infile[0])
 			node->infile = ft_clean(node->infile, envir);
 		if (node->outfile[0])

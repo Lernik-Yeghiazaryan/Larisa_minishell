@@ -64,6 +64,8 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 	signal(SIGTSTP, SIG_IGN);
 	ret = 0;
 	path = search_list(*envir, "PATH");
+	if (!path)
+		not_found_error(node.cmd[0], envir);
 	cmd = accses_to_exec(node.cmd[0], path);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
 		ret = execve(node.cmd[0], node.cmd, ch_env);
@@ -111,6 +113,7 @@ int	commands(t_node node, t_env **envir)
 		exec_status = builtin(node, envir);
 	else if (node.inf_stat != -1)
 	{
+
 		pid = fork();
 		if (pid == 0)
 		{

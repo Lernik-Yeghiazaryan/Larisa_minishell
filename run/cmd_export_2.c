@@ -67,8 +67,8 @@ void	pluse_equal_2(char *cmd, t_env **en, char **array)
 		set_exit_code("1", en);
 		return ;
 	}
-	// free_arr(array);
 	array = ft_split_export(cmd, '+');
 	array[1]++;
 	pluse_equal(array, en);
+	// free_arr(array);
 }

@@ -95,7 +95,6 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 			continue ;
 		take_pars_val(node, &envir, in_cpy, out_cpy);
 		free_node(node);
-		// system("leaks minishell");
 	}
 }
 
@@ -103,10 +102,7 @@ int	second_hook(void)
 {
 	return (0);
 }
-//harcnel unset Path ls i pahy
-// sxal path tal cd  in
-// setenv
-// dollar
+
 int	main(int argc, char **argv, char **env)
 {
 	t_node	*node;

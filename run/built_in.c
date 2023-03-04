@@ -30,7 +30,7 @@ int	builtin(t_node node, t_env **en)
 	if (!ft_strcmp(node.cmd[0], "echo"))
 	{
 		cmd_echo(node, en);
-		// set_exit_code("0", en);
+		set_exit_code("0", en);
 	}
 	else if (!ft_strcmp(node.cmd[0], "cd"))
 		status = cmd_cd(node, en);

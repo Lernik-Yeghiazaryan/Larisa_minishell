@@ -72,7 +72,6 @@ int	print_doll(char *str, int *i)
 {
 	if (str[*i] == '$' && (!str[*i + 1] || (is_space(str[*i]))))
 	{
-		printf("$");
 		i++;
 		return (1);
 	}

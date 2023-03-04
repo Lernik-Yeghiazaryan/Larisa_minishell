@@ -71,9 +71,11 @@ int	cmd_cd(t_node node, t_env **en)
 		path = get_current_path();
 		add_oldpwd(path, en);
 		if (!chdir(node.cmd[1]))
-			set_exit_code("0", en);
+			return (0);
+			// set_exit_code("0", en);
 		else
-			set_exit_code("1", en);
+			return (-1);
+			// set_exit_code("1", en);
 	}
 	return (0);
 }

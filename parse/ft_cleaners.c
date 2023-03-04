@@ -42,15 +42,20 @@ void	ft_clean_spasec(t_node *head, t_env **envir)
 	t_node	*node;
 
 	node = head;
-	while (node)
-	{
-		node->cmd = ft_clean(node->cmd, envir);
-		node->infile = ft_clean(node->infile, envir);
-		node->outfile = ft_clean(node->outfile, envir);
-		node->append = ft_clean(node->append, envir);
-		node->heredoc = ft_clean(node->heredoc, envir);
-		node = node->next;
-	}
+		if (node->cmd)
+		{
+			puts("heloooooooo");
+			printf("%s\n", node->cmd[0]);
+			node->cmd = ft_clean(node->cmd, envir);
+		}
+		if (node->infile[0])
+			node->infile = ft_clean(node->infile, envir);
+		if (node->outfile[0])
+			node->outfile = ft_clean(node->outfile, envir);
+		if (node->append[0])
+			node->append = ft_clean(node->append, envir);
+		if (node->heredoc[0])
+			node->heredoc = ft_clean(node->heredoc, envir);
 }
 
 char	*ft_clean_spase_between(char *str)
@@ -82,9 +87,12 @@ static void	ft_clean_sp_redir_2(t_node *node)
 	int	i;
 
 	i = 0;
+	// printf("ka3 = %s\n", node->outfile[0]);
 	while (node->outfile && node->outfile[i])
 	{
+		// printf("before outfile = %s\n", node->outfile[i]);
 		node->outfile[i] = ft_clean_spase_between(node->outfile[i]);
+		// printf("after outfile = %s\n", node->outfile[i]);
 		i++;
 	}
 	i = 0;
@@ -102,13 +110,17 @@ void	ft_clean_sp_redir(t_node *node)
 	i = 0;
 	while (node->heredoc && node->heredoc[i])
 	{
+		// printf("before heredoc = %s\n", node->heredoc[i]);
 		node->heredoc[i] = ft_clean_spase_between(node->heredoc[i]);
+		// printf("after heredoc = %s\n", node->heredoc[i]);
 		i++;
 	}
 	i = 0;
 	while (node->append && node->append[i])
 	{
+		// printf("before append = %s\n", node->append[i]);
 		node->append[i] = ft_clean_spase_between(node->append[i]);
+		// printf("after append = %s\n", node->append[i]);
 		i++;
 	}
 	ft_clean_sp_redir_2(node);

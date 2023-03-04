@@ -26,26 +26,33 @@ int	builtin(t_node node, t_env **en)
 {
 	int	status;
 
-	status = -1;
+	status = 0;
 	if (!ft_strcmp(node.cmd[0], "echo"))
 	{
 		cmd_echo(node, en);
-		set_exit_code("0", en);
-	}	
+		// set_exit_code("0", en);
+	}
 	else if (!ft_strcmp(node.cmd[0], "cd"))
-		cmd_cd(node, en);
+		status = cmd_cd(node, en);
 	else if (!ft_strcmp(node.cmd[0], "pwd"))
-		cmd_pwd(en);
+		status = cmd_pwd(en);
 	else if (!ft_strcmp(node.cmd[0], "export"))
-		cmd_export(node, en);
+		{
+			cmd_export(node, en);
+			status = get_exit_code(en);
+		}
 	else if (!ft_strcmp(node.cmd[0], "unset"))
+	{
 		cmd_unset(node.cmd[1], en);
+		status = get_exit_code(en);
+	}
 	else if (!ft_strcmp(node.cmd[0], "env"))
 		print_list(en);
+
 	else if (!ft_strcmp(node.cmd[0], "exit"))
 	{
-		status = 1;
 		cmd_exit(node.cmd, en);
+		status = get_exit_code(en);
 	}
 	return (status);
 }

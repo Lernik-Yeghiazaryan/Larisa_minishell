@@ -64,7 +64,7 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 	signal(SIGTSTP, SIG_IGN);
 	ret = 0;
 	path = search_list(*envir, "PATH");
-	cmd = accses_to_exec(node.cmd[0], path);
+		cmd = accses_to_exec(node.cmd[0], path);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
 		ret = execve(node.cmd[0], node.cmd, ch_env);
 	else
@@ -73,6 +73,7 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 		not_found_error(node.cmd[0], envir);
 	// free(cmd);
 	// cmd = NULL;
+	printf("ret %d\n", ret);
 	return (ret);
 }
 
@@ -138,7 +139,7 @@ int	command_for_pipe(t_node node, t_env **envir)
 	ch_env = list_to_char(*envir);
 	if (node.cmd && node.cmd[0] != NULL && is_builtin(node.cmd[0]))
 		exec_status = builtin(node, envir);
-	else if (node.inf_stat != -1)
+	else if (node.cmd && node.inf_stat != -1)
 	{
 		exec_status = child_proc(node, envir, ch_env);
 		if (exec_status < 0)
@@ -148,6 +149,7 @@ int	command_for_pipe(t_node node, t_env **envir)
 	}
 
 	free_arr(ch_env);
+	printf("exec_status is %d\n", exec_status);
 	if (exec_status < 0)
 		return (127);
 	return (exec_status);

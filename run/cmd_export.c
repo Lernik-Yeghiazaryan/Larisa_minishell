@@ -130,7 +130,7 @@ void	cmd_export(t_node node, t_env **en)
 	if (!node.cmd[1])
 	{
 		sort_list(en);
-		set_exit_code("0", en);
+		// set_exit_code("0", en);
 		return ;
 	}
 	while (node.cmd[i])

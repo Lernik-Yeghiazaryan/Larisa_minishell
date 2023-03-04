@@ -80,11 +80,21 @@ int	initialize(t_node	*head)
 //echo "$PWD "" "  menak senc kpcrac chakertneri pahna sxal es mtacum em sxala lcrac et hatvacna
 t_node	*parser(t_node *head, t_env **envir)
 {
+	t_node *node;
+
+	node = head;
 	if (check_quote_2(head, envir) || unexpected_tokens(head, envir) || !initialize(head)) //kam kareliya estex free-i funkcyan kanchel woncor es 3um el malloc ka
 		return (0);
-	ft_clean_sp_redir(head); //estexic maqruma
-	ft_clean_spasec(head, envir);     
+	while (node)
+	{
+	// printf("ka1 = %s\n", head->next->outfile[0]);
+	ft_clean_sp_redir(node);
+	ft_clean_spasec(node, envir);
+	// printf("ka2 = %s\n", head->next->outfile[0]);
+	// printf("ka3 = %s\n", head->next->outfile[0]);
 	// print_node(head);
+		node = node->next;
+	}
 	return (head);
 }
 

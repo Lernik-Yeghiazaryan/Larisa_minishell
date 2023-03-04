@@ -78,7 +78,6 @@ void	ft_pipe(t_node *node, t_env **envir)
 	}
 	ft_close(fds, n);
 	int ret;
-		printf("AAAA\n");
 	i = -1;
 	while (++i < n)
 	{

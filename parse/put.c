@@ -45,12 +45,12 @@ int	put_in_out(t_node *node, char c)
 			if (c == '<')
 			{
 				node->infile[i] = ft_substr(node->readline, start, l);
-				// printf("node->infile[%d] = %s\n", i, node->infile[i]);
+				printf("node->infile[%d] = %s\n", i, node->infile[i]);
 			}
 			else if (c == '>')
 			{
 				node->outfile[i] = ft_substr(node->readline, start, l);
-				// printf("node->outfile[%d] = %s\n", i, node->outfile[i]);
+				printf("node->outfile[%d] = %s\n", i, node->outfile[i]);
 			}
 			s += l;
 			i++;
@@ -93,12 +93,12 @@ int	put_hd_app(t_node *node, char c)
 			if (c == '<')
 			{
 				node->heredoc[i] = ft_substr(node->readline, start, l);
-				// printf("node->heredoc[%d] = %s\n", i, node->heredoc[i]);
+				printf("node->heredoc[%d] = %s\n", i, node->heredoc[i]);
 			}
 			else if (c == '>')
 			{
 				node->append[i] = ft_substr(node->readline, start, l);
-				// printf("node->append[%d] = %s\n", i, node->append[i]);
+				printf("node->append[%d] = %s\n", i, node->append[i]);
 			}
 			s += l;
 			i++;

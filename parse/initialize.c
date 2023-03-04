@@ -17,6 +17,7 @@ int	initial_nodes(t_node *node)
 	int	i;
 
 	i = 0;
+	node->cmd = NULL;
 	while (node->readline && node->readline[i])
 	{
 		if (node->readline[i] == '\"' || node->readline[i] == '\'')

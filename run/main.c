@@ -76,8 +76,7 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 	line = NULL;
 	while (1)
 	{
-		printf(ESC_GREEN);
-		line = readline("💚 minishell :"ESC_WHITE);
+		line = readline(ESC_GREEN"💚 minishell :"ESC_WHITE);
 		if (!line)
 			ft_print_exit();
 		if (line[0])
@@ -88,7 +87,6 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 			continue ;
 		}
 		lexer(&node, line, &envir);
-		// printf("readline = %s\n", node->readline);
 		free(line);
 		line = NULL;
 		if (!node)
@@ -106,6 +104,7 @@ int	second_hook(void)
 {
 	return (0);
 }
+//harcnel unset Path ls i pahy
 
 int	main(int argc, char **argv, char **env)
 {

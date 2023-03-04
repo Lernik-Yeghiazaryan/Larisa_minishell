@@ -84,13 +84,16 @@ int	check_quote_2(t_node *node, t_env **en)
 	return (0);
 }
 
+
+
 static int	find_unexpected_token(char *s, int i, t_env **en)
 {
 	while (s[i] && ft_strchr(SPACES, s[i]))
 		i++;
+	// ignore_quotes(s, &i);
 	if (s[i] == '\0' || ft_strchr("|&;()><", s[i]))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+		ft_putstr_fd("minishell :syntax error near unexpected token\n", 2);
 		set_exit_code("258", en);
 		return (1);
 	}
@@ -109,7 +112,7 @@ static int	check_redir(char *s, t_env	**en)
 			|| (s[i] == '<' && ++i)
 			|| (s[i] == '>' && ++i))
 		{
-			if (find_unexpected_token(s, i, en))
+			if ((s[i] == '\"' || s[i] == '\"') && find_unexpected_token(s, i, en))
 				return (1);
 		}
 	}

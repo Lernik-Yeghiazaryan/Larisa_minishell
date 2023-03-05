@@ -94,6 +94,7 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 		if (!node)
 			continue ;
 		take_pars_val(node, &envir, in_cpy, out_cpy);
+		// printf("galisa\n");
 		free_node(node);
 	}
 }

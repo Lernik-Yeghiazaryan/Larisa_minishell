@@ -58,7 +58,7 @@ int		node_len(t_node *node);
 void	ft_pipe(t_node *node, t_env **envir);
 void	print_node(t_node *node);
 int		check_pluse_equal(char *str);
-void	pluse_equal_2(char *cmd, t_env **en, char **array);
+void	pluse_equal_2(char *cmd, t_env **en);
 void	pluse_equal(char **array, t_env **en);
 void	child_error(int child, int i);
 int		ft_arrlen(char **str);
@@ -106,6 +106,8 @@ void	not_found_error(char *cmd, t_env **en);
 void	ft_heredoc(t_node *node);
 void	*free_arr(char **s);
 int		command_for_pipe(t_node node, t_env **envir);
+void	free_node(t_node *node);
+void	free_one_node(t_node node);
 
 
 #endif

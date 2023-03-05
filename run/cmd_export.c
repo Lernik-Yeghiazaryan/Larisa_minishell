@@ -54,7 +54,7 @@ void	pluse_equal(char **array, t_env **en)
 	// tmp = NULL;
 	curr = *en;
 	if (!array[1])
-		array[1] = "";
+		array[1] = ft_strdup("");
 	while (curr)
 	{
 		if (!ft_strcmp(curr->key, array[0]))
@@ -110,17 +110,17 @@ static void	cmd_one_export(char *cmd, t_env **en)
 	}
 	else if (ft_strnstr(cmd, "+=", ft_strlen(cmd)))
 	{
-		pluse_equal_2(cmd, en, array);
+		pluse_equal_2(cmd, en);
 	}
 	else if (ft_strnstr(cmd, "=", ft_strlen(cmd)))
 	{
 		array = ft_split_export(cmd, '=');
 		equal_only(array, en);
+		free_arr(array);
+		array = NULL;
 	}
 	else
 		add_only(cmd, en);
-	free_arr(array);
-	array = NULL;
 }
 
 void	cmd_export(t_node node, t_env **en)

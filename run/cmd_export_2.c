@@ -59,8 +59,11 @@ int	check_pluse_equal(char *str)
 	return (1);
 }
 
-void	pluse_equal_2(char *cmd, t_env **en, char **array)
+void	pluse_equal_2(char *cmd, t_env **en)
 {
+	char **array;
+	char **array0;
+
 	if (!check_pluse_equal(cmd))
 	{
 		printf("export: `%s': not a valid identifier\n", cmd);
@@ -68,7 +71,11 @@ void	pluse_equal_2(char *cmd, t_env **en, char **array)
 		return ;
 	}
 	array = ft_split_export(cmd, '+');
-	array[1]++;
-	pluse_equal(array, en);
-	// free_arr(array);
+	array0 = malloc(sizeof(char *) * 3);
+	array0[0] = ft_strdup(array[0]);
+	array0[1] = ft_strdup(array[1] + 1);
+	array0[2] = 0;
+	free_arr(array);
+	pluse_equal(array0, en);
+	free_arr(array0);
 }

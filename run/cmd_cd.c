@@ -24,6 +24,7 @@ void	add_oldpwd(char *path, t_env **en)
 	}
 	else
 		update_list_item(en, "OLDPWD", path);
+	//free(new_env);
 }
 
 static int	cd_home(t_env**en)
@@ -56,6 +57,8 @@ static int	cd_old(t_env **en, int st)
 	return (0);
 }
 
+
+
 int	cmd_cd(t_node node, t_env **en)
 {
 	char	*path;
@@ -70,6 +73,7 @@ int	cmd_cd(t_node node, t_env **en)
 	{
 		path = get_current_path();
 		add_oldpwd(path, en);
+		free(path);
 		if (!chdir(node.cmd[1]))
 			return (0);
 		else

@@ -18,6 +18,9 @@ char	*get_current_path(void)
 
 	path = getcwd(NULL, 0);
 	if (path == NULL)
+	{
 		perror("miniahell: No such file or directory\n");
+		// printf("exit a anum\n");
+	}
 	return (path);
 }

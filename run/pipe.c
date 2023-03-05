@@ -67,11 +67,15 @@ void	ft_pipe(t_node *node, t_env **envir)
 		ft_redirs(node);
 		pid[i] = fork();
 		if (pid[i] == -1)
+		{
+			free_node(node);
 			child_error(pid[i], i);
+		}
 		else if (pid[i] == 0)
 		{
 			child_process(fds, i, n);
 			child = command_for_pipe(*node, envir);
+			free_node(node);
 			exit(child);
 		}
 		node = node->next;

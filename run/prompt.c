@@ -67,6 +67,8 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 	if (!path)
 		not_found_error(node.cmd[0], envir);
 	cmd = accses_to_exec(node.cmd[0], path);
+	// printf("%s\n", cmd);
+	// printf("cmd %s\n", node.cmd[0]);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
 		ret = execve(node.cmd[0], node.cmd, ch_env);
 	else
@@ -99,6 +101,22 @@ void	exit_for_norm(t_env **env)
 	exit(127);
 }
 
+void	free_one_node(t_node node)
+{
+	if (node.heredoc)
+		free_arr(node.heredoc);
+	if (node.append)
+		free_arr(node.append);
+	if (node.outfile)
+		free_arr(node.outfile);
+	if (node.infile)
+		free_arr(node.infile);
+	if (node.cmd)
+		free_arr(node.cmd);
+	if (node.readline)
+		free(node.readline);
+}
+
 int	commands(t_node node, t_env **envir)
 {
 	int		exec_status;
@@ -119,7 +137,10 @@ int	commands(t_node node, t_env **envir)
 		{
 			exec_status = child_proc(node, envir, ch_env);
 			if (exec_status < 0)
+			{
+				// free_one_node(node);
 				exit_for_norm(envir);
+			}
 		}
 		wait(&status);
 		status_wait(status, exec_status, envir);
@@ -127,6 +148,8 @@ int	commands(t_node node, t_env **envir)
 		signal(SIGQUIT, SIG_IGN);
 	}
 
+	// if (exec_status == -1)
+	// 	free_node(&node);
 	free_arr(ch_env);
 	return (exec_status);
 }

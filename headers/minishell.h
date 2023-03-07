@@ -26,7 +26,6 @@
 # include "libft.h"
 # include "structs.h"
 
-// int		g_exit_code;
 int		checkquotes(char *str);
 char	ft_strgtav(char *str, int c);
 void	ft_lstadd_back(t_node **lst, t_node *new_env);
@@ -108,6 +107,5 @@ void	*free_arr(char **s);
 int		command_for_pipe(t_node node, t_env **envir);
 void	free_node(t_node *node);
 void	free_one_node(t_node node);
-
 
 #endif

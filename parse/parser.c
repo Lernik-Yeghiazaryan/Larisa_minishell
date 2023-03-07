@@ -6,51 +6,12 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:25:38 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/02/25 18:23:08 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:23:55 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 // << a >k
-void	print_node(t_node *node)
-{
-	int	i;
-
-	i = 0;
-	if (node)
-	{
-		while (node->cmd && node->cmd[i])
-		{
-			printf("cmd[%d] = |%s|\n", i, node->cmd[i]);
-			i++;
-		}
-		i = 0; 
-		while (node->heredoc && node->heredoc[i])
-		{
-			printf("heredoc=%s|\n", node->heredoc[i]);
-			i++;
-		}
-		i = 0; 
-		while (node->append && node->append[i])
-		{
-			printf("append=%s|\n", node->append[i]);
-			i++;
-		}
-		i = 0; 
-		while (node->outfile && node->outfile[i])
-		{
-			printf("outfile=%s|\n", node->outfile[i]);
-			i++;
-		}
-		i = 0; 
-		while (node->infile && node->infile[i])
-		{
-			printf("infile=%s|\n", node->infile[i]);
-			i++;
-		}
-	}
-}
-
 void	allocate_matrix(t_node	*head)
 {
 	head->counts.s_infile = ft_infile_count(head->readline);
@@ -83,8 +44,11 @@ t_node	*parser(t_node *head, t_env **envir)
 	t_node *node;
 
 	node = head;
-	if (check_quote_2(head, envir) || unexpected_tokens(head, envir) || !initialize(head)) //kam kareliya estex free-i funkcyan kanchel woncor es 3um el malloc ka
+	if (check_quote_2(head, envir) || unexpected_tokens(head, envir) || !initialize(head)) 
+	{
+		free_node(head);
 		return (0);
+	}
 	while (node)
 	{
 	// printf("ka1 = %s\n", head->next->outfile[0]);

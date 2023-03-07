@@ -16,14 +16,15 @@ void	add_oldpwd(char *path, t_env **en)
 {
 	t_env	*new_env;
 
-	new_env = malloc(sizeof(t_env));
 	if (!search_list(*en, "OLDPWD"))
 	{
+		new_env = malloc(sizeof(t_env));
 		ft_inint_env("OLDPWD", path, new_env);
 		ft_lstadd_back_env(en, new_env);
 	}
 	else
 		update_list_item(en, "OLDPWD", path);
+	// free(path);
 	//free(new_env);
 }
 
@@ -78,7 +79,8 @@ int	cmd_cd(t_node node, t_env **en)
 			return (0);
 		else
 		{
-			printf("minishell: No such file or directory\n");
+			// printf("minishell: No such file or directory\n");
+			ft_putstr_fd("No such file or directory\n", 2);
 			set_exit_code("1", en);
 			return (-1);
 		}

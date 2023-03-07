@@ -24,7 +24,6 @@ int	initial_nodes(t_node *node)
 			ignore_quotes(node->readline, &i);
 		if (!node->readline[i])
 			break ;
-		
 		if (node->readline[i] == '>' && node->readline[i + 1] == '>')
 			put_hd_app(node, '>');
 		else if (node->readline[i] == '<' && node->readline[i + 1] == '<')

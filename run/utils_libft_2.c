@@ -57,7 +57,8 @@ void	update_list_item(t_env **lst, char *key, char *value)
 	{
 		if (!ft_strcmp(key, curr->key))
 		{
-			curr->value = value;
+			free(curr->value);
+			curr->value = ft_strdup(value);
 			return ;
 		}
 		curr = curr->next;

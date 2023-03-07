@@ -15,9 +15,12 @@
 static void	take_pars_val(t_node *node, t_env **envir, int in_cpy, int out_cpy)
 {
 	if (node->counts.s_pipe > 0)
+	{
 		ft_pipe(node, envir);
+	}
 	else
 		commands(*node, envir);
+
 	dup2(in_cpy, 0);
 	dup2(out_cpy, 1);
 }
@@ -50,7 +53,10 @@ void free_node(t_node *node)
 	{
 		tmp = node->next;
 		if (node->heredoc)
+		{
+			printf("LALALALAL\n");
 			free_arr(node->heredoc);
+		}
 		if (node->append)
 			free_arr(node->append);
 		if (node->outfile)
@@ -94,7 +100,6 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 		if (!node)
 			continue ;
 		take_pars_val(node, &envir, in_cpy, out_cpy);
-		// printf("galisa\n");
 		free_node(node);
 	}
 }
@@ -126,5 +131,6 @@ int	main(int argc, char **argv, char **env)
 	shlvl(&envir);
 	readline_main(node, envir, in_cpy, out_cpy);
 	close(out_cpy);
+	close(in_cpy);
 	return (0);
 }

@@ -61,9 +61,18 @@ void	heredoc(char *str)
 	{
 		s = readline("> ");
 		if (ft_stop(s, str))
+		{
+			// ft_free_str(s);
+			// ft_free_str(file);
+			close(fd);
 			break ;
+		}
 		ft_print_hered(s, fd);
+		// if (s != NULL)
+		// 	free(s);
+		s = NULL;
 	}
+
 	ft_dup_here(fd, &file, 1);
 }
 
@@ -82,8 +91,15 @@ void	heredoc_not(char *str)
 		if (!s)
 			return ;
 		if (!ft_strcmp(str, s))
+		{
+			// free(s);
+			close(fd);
 			break ;
+		}
 		ft_print_hered(s, fd);
+		// if (s != NULL)
+		// 	free(s);
+		s = NULL;
 	}
 	ft_dup_here(fd, &file, 0);
 }

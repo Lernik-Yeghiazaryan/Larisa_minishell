@@ -17,6 +17,7 @@ void	not_found_error(char *cmd, t_env **en)
 	ft_putstr_fd("minishell: Command not found: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd("\n", 2);
-	set_exit_code("127", en);
+	(void)en;
+	// set_exit_code("127", en);
 	exit (127);
 }

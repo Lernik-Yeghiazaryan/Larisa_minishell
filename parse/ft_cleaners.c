@@ -23,6 +23,7 @@ char	**ft_clean(char **str, t_env **envir)
 	t = 0;
 	while (str && str[i])
 	{
+		// printf("str[%d] = %s\n", i, str[i]);
 		str[i] = ft_strtrim(str[i], SPACES, &f);
 		str[i] = ft_strtrim(str[i], "\'", &t);
 		if (t)
@@ -58,6 +59,7 @@ char	*ft_clean_spase_between(char *str)
 {
 	int		i;
 	char	*res;
+	char	*res_temp;
 	char	*temp;
 	int		start;
 
@@ -70,10 +72,11 @@ char	*ft_clean_spase_between(char *str)
 		start = i;
 		while (str[i] && is_space(str[i]))
 			i++;
-		res = ft_substr(str, 0, start);
+		res_temp = ft_substr(str, 0, start);
 		temp = ft_substr(str, i, ft_strlen(str) - i);
-		res = ft_strjoin(res, temp);
+		res = ft_strjoin(res_temp, temp);
 		free(temp);
+		free(res_temp);
 	}
 	return (res);
 }
@@ -101,13 +104,18 @@ static void	ft_clean_sp_redir_2(t_node *node)
 
 void	ft_clean_sp_redir(t_node *node)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (node->heredoc && node->heredoc[i])
 	{
 		// printf("before heredoc = %s\n", node->heredoc[i]);
-		node->heredoc[i] = ft_clean_spase_between(node->heredoc[i]);
+		tmp = ft_strdup(node->heredoc[i]);
+		free(node->heredoc[i]);
+		node->heredoc[i] = 0;
+		node->heredoc[i] = ft_clean_spase_between(tmp);
+		free(tmp);
 		// printf("after heredoc = %s\n", node->heredoc[i]);
 		i++;
 	}

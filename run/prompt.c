@@ -66,7 +66,8 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 	path = search_list(*envir, "PATH");
 	if (!path)
 		not_found_error(node.cmd[0], envir);
-	cmd = accses_to_exec(node.cmd[0], path);
+	if (node.cmd && node.cmd[0])
+		cmd = accses_to_exec(node.cmd[0], path);
 	// printf("%s\n", cmd);
 	// printf("cmd %s\n", node.cmd[0]);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
@@ -75,8 +76,8 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 		ret = execve(cmd, node.cmd, ch_env);
 	if (ret == -1)
 		not_found_error(node.cmd[0], envir);
-	// free(cmd);
-	// cmd = NULL;
+	free(cmd);
+	cmd = NULL;
 	return (ret);
 }
 
@@ -85,10 +86,9 @@ void	status_wait(int status, int exec_status, t_env **en)
 	char *str;
 
 	str = ft_itoa(WEXITSTATUS(status));
-	// printf("str = %s\n", str);
 	if (WIFEXITED(status) && exec_status == 0)
 		set_exit_code(str, en);
-	if (str)
+	if (str != NULL)
 	{
 		free(str);
 		str = NULL;
@@ -97,7 +97,8 @@ void	status_wait(int status, int exec_status, t_env **en)
 
 void	exit_for_norm(t_env **env)
 {
-	set_exit_code("127", env);
+	// set_exit_code("127", env);
+	(void)env;
 	exit(127);
 }
 
@@ -135,7 +136,8 @@ int	commands(t_node node, t_env **envir)
 		pid = fork();
 		if (pid == 0)
 		{
-			exec_status = child_proc(node, envir, ch_env);
+			if (node.cmd)
+				exec_status = child_proc(node, envir, ch_env);
 			if (exec_status < 0)
 			{
 				// free_one_node(node);

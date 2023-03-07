@@ -23,3 +23,4 @@ void	ft_print_exit(void)
 	printf("minishell :exit");
 	exit(0);
 }
+

@@ -44,8 +44,29 @@ static void	ft_filedisc_init(int (*fds)[2], int n)
 	int	i;
 
 	i = -1;
-	while (++i <= n)
+	while (++i <= n - 1)
 		pipe(fds[i]);
+}
+
+void	ft_wait(int n, t_env **env, int	*pid)
+{
+	int		ret;
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	tmp =0;
+	while (++i < n)
+	{
+		waitpid(pid[i], &ret, 0);
+		if (WIFEXITED(ret) != 0)
+		{
+			tmp = ft_itoa(WEXITSTATUS(ret));
+			set_exit_code(tmp, env);
+			free(tmp);
+		}
+	}
+	// free(pid);
 }
 
 void	ft_pipe(t_node *node, t_env **envir)
@@ -81,16 +102,7 @@ void	ft_pipe(t_node *node, t_env **envir)
 		node = node->next;
 	}
 	ft_close(fds, n);
-	int ret;
-	i = -1;
-	while (++i < n)
-	{
-		waitpid(pid[i], &ret, 0);
-		if (WIFEXITED(ret) != 0)
-			set_exit_code(ft_itoa(WEXITSTATUS(ret)), envir);
-	}
-	
-
-	// while (wait(0) != -1)
-	// 	;
+	ft_wait(n, envir, pid);
+	free(pid);
+	free(fds);
 }

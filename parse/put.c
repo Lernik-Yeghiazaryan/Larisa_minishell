@@ -6,12 +6,11 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:15:21 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/25 15:12:42 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:20:30 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 static int	size_infile(char *str, int i, char c)
 {
 	if (str[i] == c)

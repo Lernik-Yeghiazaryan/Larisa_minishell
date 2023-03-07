@@ -46,6 +46,7 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+
 # define BLACK		 "\033[0;30m"
 # define BOLD_BLACK  "\033[1;30m"
 # define RED		 "\033[0;31m"

@@ -61,7 +61,7 @@ void	*free_arr(char **s)
 		free(s[i]);
 		i++;
 	}
-	if (s)
+	if (s != NULL)
 		free(s);
 	return (0);
 }

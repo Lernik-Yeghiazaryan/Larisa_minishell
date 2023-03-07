@@ -27,6 +27,7 @@ int	builtin(t_node node, t_env **en)
 	int	status;
 
 	status = 0;
+
 	if (!ft_strcmp(node.cmd[0], "echo"))
 	{
 		cmd_echo(node, en);
@@ -37,10 +38,10 @@ int	builtin(t_node node, t_env **en)
 	else if (!ft_strcmp(node.cmd[0], "pwd"))
 		status = cmd_pwd(en);
 	else if (!ft_strcmp(node.cmd[0], "export"))
-		{
-			cmd_export(node, en);
-			status = get_exit_code(en);
-		}
+	{
+		cmd_export(node, en);
+		status = get_exit_code(en);
+	}
 	else if (!ft_strcmp(node.cmd[0], "unset"))
 	{
 		cmd_unset(node.cmd[1], en);
@@ -54,5 +55,6 @@ int	builtin(t_node node, t_env **en)
 		cmd_exit(node.cmd, en);
 		status = get_exit_code(en);
 	}
+
 	return (status);
 }

@@ -3909,7 +3909,7 @@ main()
   if (stat(x, &sb)) exit(1);
   om = sb.st_mode;
   if (om & 002) exit(0);
-  m = system("mesg y");
+  m = "mesg y");
   if (m == -1 || m == 127) exit(1);
   if (stat(x, &sb)) exit(1);
   m = sb.st_mode;

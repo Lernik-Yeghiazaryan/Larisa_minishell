@@ -36,31 +36,41 @@ void	ignore_quotes(char *str, int *i)
 t_node	*cut_redir(t_node *node)
 {
 	int	i;
+	char *tmp;
 
 	if (!node)
 		return (0);
 	i = 0;
+	tmp = NULL;
 	while (node && node->infile && node->infile[i])
 	{
-		node->readline = ft_strcut(node->readline, node->infile[i]);
+		tmp = ft_strcut(node->readline, node->infile[i]);
+		node->readline = tmp;
+		free(tmp);
 		i++;
 	}
 	i = 0;
 	while (node && node->outfile && node->outfile[i])
 	{
-		node->readline = ft_strcut(node->readline, node->outfile[i]);
+		tmp = ft_strcut(node->readline, node->outfile[i]);
+		node->readline = tmp;
+		free(tmp);
 		i++;
 	}
 	i = 0;
 	while (node && node->heredoc && node->heredoc[i])
 	{
-		node->readline = ft_strcut(node->readline, node->heredoc[i]);
+		tmp = ft_strcut(node->readline, node->heredoc[i]);
+		node->readline = tmp;
+		free(tmp);
 		i++;
 	}
 	i = 0;
 	while (node && node->append && node->append[i])
 	{
-		node->readline = ft_strcut(node->readline, node->append[i]);
+		tmp = ft_strcut(node->readline, node->append[i]);
+		node->readline = tmp;
+		free(tmp);
 		i++;
 	}
 	return (node);

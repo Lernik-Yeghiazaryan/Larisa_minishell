@@ -35,6 +35,7 @@ int	initial_nodes(t_node *node)
 		++i;
 	}
 	node = cut_redir(node);
+	system("leaks minishell");
 	if (!node->readline)
 	{
 		return (1); // petqa maqrel error tpel u durs gal erevi bayc myus funkcyayum ereviiiiiii

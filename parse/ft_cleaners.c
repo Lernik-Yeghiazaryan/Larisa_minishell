@@ -125,14 +125,12 @@ void	ft_clean_sp_redir(t_node *node)
 	tmp = NULL;
 	while (node->heredoc && node->heredoc[i])
 	{
-		// printf("before heredoc = %s\n", node->heredoc[i]);
 		tmp = ft_strdup(node->heredoc[i]);
 		free(node->heredoc[i]);
 		node->heredoc[i] = 0;
 		node->heredoc[i] = ft_clean_spase_between(tmp);
 		free(tmp);
 		tmp = NULL;
-		// printf("after heredoc = %s\n", node->heredoc[i]);
 		i++;
 	}
 	i = 0;

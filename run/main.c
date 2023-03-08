@@ -102,7 +102,6 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 			continue ;
 		take_pars_val(node, &envir, in_cpy, out_cpy);
 		free_node(node);
-		system("leaks minishell");
 	}
 }
 

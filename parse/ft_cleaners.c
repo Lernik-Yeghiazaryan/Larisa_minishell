@@ -64,7 +64,7 @@ char	*ft_clean_spase_between(char *str)
 	int		start;
 
 	i = -1;
-	start = 0;//es toxy indz tvuma kareliya jnjelel
+	start = 0;
 	temp = NULL;
 	res = NULL;
 	while (str && str[++i])
@@ -75,6 +75,8 @@ char	*ft_clean_spase_between(char *str)
 		res_temp = ft_substr(str, 0, start);
 		temp = ft_substr(str, i, ft_strlen(str) - i);
 		res = ft_strjoin(res_temp, temp);
+		if (res && str[i] && str[i + 1])
+			free(res);
 		free(temp);
 		free(res_temp);
 	}
@@ -84,20 +86,32 @@ char	*ft_clean_spase_between(char *str)
 static void	ft_clean_sp_redir_2(t_node *node)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
+	tmp = NULL;
 	// printf("ka3 = %s\n", node->outfile[0]);
 	while (node->outfile && node->outfile[i])
 	{
 		// printf("before outfile = %s\n", node->outfile[i]);
-		node->outfile[i] = ft_clean_spase_between(node->outfile[i]);
+		tmp = ft_strdup(node->outfile[i]);
+		free(node->outfile[i]);
+		node->outfile[i] = 0;
+		node->outfile[i] = ft_clean_spase_between(tmp);
+		free(tmp);
+		tmp = NULL;
 		// printf("after outfile = %s\n", node->outfile[i]);
 		i++;
 	}
 	i = 0;
 	while (node->infile && node->infile[i])
 	{
-		node->infile[i] = ft_clean_spase_between(node->infile[i]);
+		tmp = ft_strdup(node->infile[i]);
+		free(node->infile[i]);
+		node->infile[i] = 0;
+		node->infile[i] = ft_clean_spase_between(tmp);
+		free(tmp);
+		tmp = NULL;
 		i++;
 	}
 }
@@ -108,6 +122,7 @@ void	ft_clean_sp_redir(t_node *node)
 	char	*tmp;
 
 	i = 0;
+	tmp = NULL;
 	while (node->heredoc && node->heredoc[i])
 	{
 		// printf("before heredoc = %s\n", node->heredoc[i]);
@@ -116,6 +131,7 @@ void	ft_clean_sp_redir(t_node *node)
 		node->heredoc[i] = 0;
 		node->heredoc[i] = ft_clean_spase_between(tmp);
 		free(tmp);
+		tmp = NULL;
 		// printf("after heredoc = %s\n", node->heredoc[i]);
 		i++;
 	}
@@ -123,7 +139,12 @@ void	ft_clean_sp_redir(t_node *node)
 	while (node->append && node->append[i])
 	{
 		// printf("before append = %s\n", node->append[i]);
-		node->append[i] = ft_clean_spase_between(node->append[i]);
+		tmp = ft_strdup(node->append[i]);
+		free(node->append[i]);
+		node->append[i] = 0;
+		node->append[i] = ft_clean_spase_between(tmp);
+		free(tmp);
+		tmp = NULL;
 		// printf("after append = %s\n", node->append[i]);
 		i++;
 	}

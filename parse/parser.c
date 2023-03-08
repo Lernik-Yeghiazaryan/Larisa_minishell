@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-// << a >k
+
 void	allocate_matrix(t_node	*head)
 {
 	head->counts.s_infile = ft_infile_count(head->readline);
@@ -24,7 +24,6 @@ void	allocate_matrix(t_node	*head)
 	head->outfile = ft_calloc((head->counts.s_outfile + 1), sizeof(char *));
 	head->heredoc = ft_calloc((head->counts.s_heredoc + 1), sizeof(char *));
 	head->append = ft_calloc((head->counts.s_append + 1), sizeof(char *));
-	// head->cmd = ft_calloc((head->counts.s_cmd + 1), sizeof(char *));
 }
 
 int	initialize(t_node	*head)
@@ -32,13 +31,13 @@ int	initialize(t_node	*head)
 	while (head)
 	{
 		allocate_matrix(head);
-		if (!initial_nodes(head))// ay estex maqrel nodery u listy arandzin funkcyayov
+		if (!initial_nodes(head))
 			return (0);
 		head = head->next;
 	}
 	return (1);
 }
-//echo "$PWD "" "  menak senc kpcrac chakertneri pahna sxal es mtacum em sxala lcrac et hatvacna
+
 t_node	*parser(t_node *head, t_env **envir)
 {
 	t_node *node;

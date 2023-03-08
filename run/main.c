@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int g_exit_code = 0;
+
 static void	take_pars_val(t_node *node, t_env **envir, int in_cpy, int out_cpy)
 {
 	if (node->counts.s_pipe > 0)
@@ -20,7 +22,6 @@ static void	take_pars_val(t_node *node, t_env **envir, int in_cpy, int out_cpy)
 	}
 	else
 		commands(*node, envir);
-
 	dup2(in_cpy, 0);
 	dup2(out_cpy, 1);
 }
@@ -54,7 +55,7 @@ void free_node(t_node *node)
 		tmp = node->next;
 		if (node->heredoc)
 		{
-			printf("LALALALAL\n");
+			// printf("LALALALAL\n");
 			free_arr(node->heredoc);
 		}
 		if (node->append)

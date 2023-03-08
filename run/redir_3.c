@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-void	ft_print_hered(char *line, int fd)
+void	ft_print_hered(char **line, int fd)
 {
-	write(fd, line, ft_strlen(line));
+	write(fd, *line, ft_strlen(*line));
 	write(fd, "\n", 1);
-	free(line);
-	line = NULL;
+	free(*line);
+	*line = NULL;
 }
 
 int	ft_stop(char *s, char *str)
@@ -60,19 +60,18 @@ void	heredoc(char *str)
 	while (1)
 	{
 		s = readline("> ");
-		if (ft_stop(s, str))
+		if (g_exit_code == 1234)
 		{
-			// ft_free_str(s);
-			// ft_free_str(file);
+			g_exit_code = 0;
+			ft_free_str(s);
+			ft_free_str(file);
 			close(fd);
-			break ;
+			return ;
 		}
-		ft_print_hered(s, fd);
-		// if (s != NULL)
-		// 	free(s);
-		s = NULL;
+		if (ft_stop(s, str))
+			break ;
+		ft_print_hered(&s, fd);
 	}
-
 	ft_dup_here(fd, &file, 1);
 }
 
@@ -90,15 +89,16 @@ void	heredoc_not(char *str)
 		s = readline("> ");
 		if (!s)
 			return ;
-		if (!ft_strcmp(str, s))
+		if (g_exit_code == 1234)
 		{
-			// free(s);
+			g_exit_code = 0;
+			free(s);
 			close(fd);
-			break ;
+			return ;
 		}
-		ft_print_hered(s, fd);
-		// if (s != NULL)
-		// 	free(s);
+		if (!ft_strcmp(str, s))
+			break ;
+		ft_print_hered(&s, fd);
 		s = NULL;
 	}
 	ft_dup_here(fd, &file, 0);

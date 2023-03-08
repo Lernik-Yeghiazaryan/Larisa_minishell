@@ -55,7 +55,7 @@ char	*accses_to_exec(char *cmd, char *path)
 static int	child_proc(t_node node, t_env **envir, char **ch_env)
 {
 	char	*path;
-	char	*cmd;
+	char	*cmd = NULL;
 	int		ret;
 
 	rl_catch_signals = 0;
@@ -68,8 +68,6 @@ static int	child_proc(t_node node, t_env **envir, char **ch_env)
 		not_found_error(node.cmd[0], envir);
 	if (node.cmd && node.cmd[0])
 		cmd = accses_to_exec(node.cmd[0], path);
-	// printf("%s\n", cmd);
-	// printf("cmd %s\n", node.cmd[0]);
 	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
 		ret = execve(node.cmd[0], node.cmd, ch_env);
 	else
@@ -136,8 +134,7 @@ int	commands(t_node node, t_env **envir)
 		pid = fork();
 		if (pid == 0)
 		{
-			if (node.cmd)
-				exec_status = child_proc(node, envir, ch_env);
+			exec_status = child_proc(node, envir, ch_env);
 			if (exec_status < 0)
 			{
 				// free_one_node(node);

@@ -17,4 +17,5 @@ void	handler(int sig)
 	(void)sig;
 	rl_replace_line("", 0);
 	rl_done = 1;
+	g_exit_code = 1234;
 }

@@ -19,10 +19,12 @@ void cmd_no_infile(char *file, t_node *node)
 	fd = open(++file, O_RDONLY, 0644);
 	if (fd < 0)
 	{
-		node->inf_stat = -1;
-		node->inf_err_code = 1;
-		perror("minishell : no such file or directori");
-		return;
+		if (node->inf_stat != 1)
+		{
+			write(2, "No such file or directory\n", 27);
+			node->inf_err_code = -1;
+			return ;
+		}
 	}
 	close(fd);
 }
@@ -49,7 +51,6 @@ void cmd_outfile(char *file, int flag)
 {
 	int fd;
 
-	// printf("outfile is |%s|\n", file+1);
 	fd = open(++file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (flag == 1)
 		dup2(fd, 1);
@@ -60,10 +61,8 @@ void cmd_append(char *file, int flag)
 {
 	int fd;
 
-	printf("appned |%s|\n", file);
 	fd = open(file + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (flag == 1)
 		dup2(fd, 1);
 	close(fd);
-	
 }

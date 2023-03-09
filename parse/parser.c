@@ -26,16 +26,14 @@ void	allocate_matrix(t_node	*head)
 	head->append = ft_calloc((head->counts.s_append + 1), sizeof(char *));
 }
 
-int	initialize(t_node	*head)
+void	initialize(t_node	*head)
 {
 	while (head)
 	{
 		allocate_matrix(head);
-		if (!initial_nodes(head))
-			return (0);
+		initial_nodes(head);
 		head = head->next;
 	}
-	return (1);
 }
 
 t_node	*parser(t_node *head, t_env **envir)
@@ -43,19 +41,16 @@ t_node	*parser(t_node *head, t_env **envir)
 	t_node *node;
 
 	node = head;
-	if (check_quote_2(head, envir) || unexpected_tokens(head, envir) || !initialize(head)) 
+	if (check_quote_2(head, envir) || unexpected_tokens(head, envir)) 
 	{
 		free_node(head);
 		return (0);
 	}
+	initialize(head);
 	while (node)
 	{
-	// printf("ka1 = %s\n", head->next->outfile[0]);
 	ft_clean_sp_redir(node);
 	ft_clean_spasec(node, envir);
-	// printf("ka2 = %s\n", head->next->outfile[0]);
-	// printf("ka3 = %s\n", head->next->outfile[0]);
-	// print_node(head);
 		node = node->next;
 	}
 	return (head);

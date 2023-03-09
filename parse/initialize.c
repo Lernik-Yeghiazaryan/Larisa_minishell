@@ -35,12 +35,10 @@ int	initial_nodes(t_node *node)
 		++i;
 	}
 	node = cut_redir(node);
-	system("leaks minishell");
-	if (!node->readline)
+	if (node->readline)
 	{
-		return (1); // petqa maqrel error tpel u durs gal erevi bayc myus funkcyayum ereviiiiiii
-	}
 	node->cmd = pars_ft_split(node->readline, ' '); // sranica vor ( "aaaa   "a ) chi ashxatum
 	ft_wcount(node->readline, ' ');
+	}
 	return (1);
 }

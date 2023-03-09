@@ -35,7 +35,7 @@ void	ignore_quotes(char *str, int *i)
 
 t_node	*cut_redir(t_node *node)
 {
-	int	i;
+	int		i;
 
 	if (!node)
 		return (0);
@@ -55,6 +55,7 @@ t_node	*cut_redir(t_node *node)
 	while (node && node->heredoc && node->heredoc[i])
 	{
 		node->readline = ft_strcut(node->readline, node->heredoc[i]);
+		system("leaks minishell");
 		i++;
 	}
 	i = 0;

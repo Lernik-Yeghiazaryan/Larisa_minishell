@@ -24,6 +24,5 @@ void	ft_list_add_back(t_node **lst, t_node *new)
 		while (testnode->next != NULL)
 			testnode = testnode->next;
 		testnode->next = new;
-		// testnode->next->next = NULL;
 	}
 }

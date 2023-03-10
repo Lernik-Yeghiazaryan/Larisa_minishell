@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:38:27 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/03/10 14:18:29 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:36:27 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ static char	*fill(char *s, size_t h, int l)
 	return (str);
 }
 
+void	ddum2(char *s, int *t, char c)
+{
+	while (s[*t] && s[*t] != c)
+	{
+		if (s[*t] == '\"' || s[*t] == '\'')
+			ignore_quotes(s, t);
+		if (!s[*t])
+			break ;
+		++*t;
+	}
+}
+
 char	**pars_ft_split(char *s, char c)
 {
 	int		i;
@@ -72,14 +84,7 @@ char	**pars_ft_split(char *s, char c)
 		while (s[h] && s[h] == ' ')
 			++h;
 		t = h;
-		while (s[t] && s[t] != c)
-		{
-			if (s[t] == '\"' || s[t] == '\'')
-				ignore_quotes(s, &t);
-			if (!s[t])
-				break ;
-			++t;
-		}
+		ddum2(s, &t, c);
 		sp[i] = fill(s, h, t - h);
 		h = t + 1;
 	}

@@ -55,7 +55,7 @@ void	ft_wait(int n, t_env **env, int	*pid)
 	char	*tmp;
 
 	i = -1;
-	tmp =0;
+	tmp = 0;
 	while (++i < n)
 	{
 		waitpid(pid[i], &ret, 0);
@@ -78,7 +78,6 @@ void	ft_pipe(t_node *node, t_env **envir)
 	int	*pid;
 
 	i = -1;
-	// node->pid = 0;
 	n = node_len(node);
 	fds = ft_calloc(sizeof(int *), node->counts.s_pipe + 1);
 	pid = malloc(sizeof(int) * n);

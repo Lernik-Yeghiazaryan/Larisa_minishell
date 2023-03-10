@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/20 14:02:15 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/02/17 15:57:57 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:59:46 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ int	last(char *s, char *set)
 	return (i);
 }
 
+void	small(char *s1, char *trim, int *f, char c)
+{	
+	if (ft_strlen(s1) != ft_strlen(trim))
+		(*f) = 1;
+	if (is_space(c))
+		*f = 0;
+}
+
 char	*ft_strtrim(char *s1, char *set, int *f)
 {
 	int		i;
@@ -74,10 +82,7 @@ char	*ft_strtrim(char *s1, char *set, int *f)
 		start++;
 	}
 	trim[i] = '\0';
-	if (ft_strlen(s1) != ft_strlen(trim))
-		(*f) = 1;
-	if (is_space(set[0]))
-		*f = 0;
+	small(s1, trim, f, set[0]);
 	free(s1);
 	return (trim);
 }

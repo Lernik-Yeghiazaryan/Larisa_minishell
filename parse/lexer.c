@@ -96,13 +96,9 @@ void	lexer(t_node **node, char *str, t_env **en)
 		new = malloc(sizeof(t_node));
 		new->readline = ft_strdup(sp[i]);
 		new->next = NULL;
-		// init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum
 		ft_list_add_back(node, new);
 		++i;
 	}
 	(*node)->counts.s_pipe = pipe_count(str);
-	// free(node->readline);
-	// free(node);
 	free_arr(sp);
-	// return (node);
 }

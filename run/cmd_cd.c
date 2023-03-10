@@ -24,8 +24,6 @@ void	add_oldpwd(char *path, t_env **en)
 	}
 	else
 		update_list_item(en, "OLDPWD", path);
-	// free(path);
-	//free(new_env);
 }
 
 static int	cd_home(t_env**en)
@@ -58,8 +56,6 @@ static int	cd_old(t_env **en, int st)
 	return (0);
 }
 
-
-
 int	cmd_cd(t_node node, t_env **en)
 {
 	char	*path;
@@ -79,7 +75,6 @@ int	cmd_cd(t_node node, t_env **en)
 			return (0);
 		else
 		{
-			// printf("minishell: No such file or directory\n");
 			ft_putstr_fd("No such file or directory\n", 2);
 			set_exit_code("1", en);
 			return (-1);

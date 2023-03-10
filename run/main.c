@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int g_exit_code = 0;
+int	g_exit_code = 0;
 
 static void	take_pars_val(t_node *node, t_env **envir, int in_cpy, int out_cpy)
 {
@@ -26,50 +26,10 @@ static void	take_pars_val(t_node *node, t_env **envir, int in_cpy, int out_cpy)
 	dup2(out_cpy, 1);
 }
 
-void	shlvl(t_env **en)
+static void	not_line(char *line)
 {
-	t_env	*curr;
-	char	*value;
-
-	curr = *en;
-	value = NULL;
-	while (curr)
-	{
-		if (!ft_strcmp(curr->key, "SHLVL"))
-		{
-			value = ft_strdup(curr->value);
-			free(curr->value);
-			curr->value = ft_itoa(ft_atoi(value) + 1);
-			free(value);
-		}
-		curr = curr->next;
-	}
-}
-
-void free_node(t_node *node)
-{
-	t_node	*tmp;
-
-	while (node)
-	{
-		tmp = node->next;
-		if (node->heredoc)
-			free_arr(node->heredoc);
-		if (node->append)
-			free_arr(node->append);
-		if (node->outfile)
-			free_arr(node->outfile);
-		if (node->infile)
-			free_arr(node->infile);
-		if (node->cmd)
-			free_arr(node->cmd);
-		if (node->readline)
-			free(node->readline);
-		free(node);
-		node = NULL;
-		node = tmp;
-	}
-	// free(node);
+	if (!line)
+		ft_print_exit();
 }
 
 void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
@@ -80,8 +40,7 @@ void	readline_main(t_node *node, t_env *envir, int in_cpy, int out_cpy)
 	while (1)
 	{
 		line = readline(ESC_GREEN"💚 minishell :"ESC_WHITE);
-		if (!line)
-			ft_print_exit();
+		not_line(line);
 		if (line[0])
 			add_history(line);
 		else

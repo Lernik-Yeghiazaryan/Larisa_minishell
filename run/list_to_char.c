@@ -29,7 +29,7 @@ char	**list_to_char(t_env *env)
 {
 	int		i;
 	char	**res;
-	char 	*tmp;
+	char	*tmp;
 
 	i = 0;
 	tmp = NULL;

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   geters.c                                           :+:      :+:    :+:   */
+/*   shlvl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgalstya <lgalstya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 16:10:08 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/01/20 16:10:21 by lgalstya         ###   ########.fr       */
+/*   Created: 2023/03/10 16:55:11 by lgalstya          #+#    #+#             */
+/*   Updated: 2023/03/10 16:55:12 by lgalstya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_current_path(void)
+void	shlvl(t_env **en)
 {
-	char	*path;
+	t_env	*curr;
+	char	*value;
 
-	path = getcwd(NULL, 0);
-	if (path == NULL)
+	curr = *en;
+	value = NULL;
+	while (curr)
 	{
-		perror("miniahell: No such file or directory\n");
+		if (!ft_strcmp(curr->key, "SHLVL"))
+		{
+			value = ft_strdup(curr->value);
+			free(curr->value);
+			curr->value = ft_itoa(ft_atoi(value) + 1);
+			free(value);
+		}
+		curr = curr->next;
 	}
-	return (path);
 }

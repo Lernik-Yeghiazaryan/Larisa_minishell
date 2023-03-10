@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int	check_valid_identif(char *str, t_env **en)
+char	**devider(char *str)
 {
-	int		i;
 	char	**array;
+	int		i;
 
 	i = 0;
 	if (ft_strnstr(str, "+=", ft_strlen(str)))
@@ -25,12 +25,18 @@ int	check_valid_identif(char *str, t_env **en)
 	}
 	else
 		array = ft_split(str, '=');
-	if (!array[0])
-	{
-		// free_arr(array);
-		return (0);
-	}
+	return (array);
+}
+
+int	check_valid_identif(char *str, t_env **en)
+{
+	int		i;
+	char	**array;
+
 	i = 0;
+	array = devider(str);
+	if (!array[0])
+		return (0);
 	while (array[0] && array[0][i])
 	{
 		if (!check_valid(array[0][i]))
@@ -61,8 +67,8 @@ int	check_pluse_equal(char *str)
 
 void	pluse_equal_2(char *cmd, t_env **en)
 {
-	char **array;
-	char **array0;
+	char	**array;
+	char	**array0;
 
 	if (!check_pluse_equal(cmd))
 	{

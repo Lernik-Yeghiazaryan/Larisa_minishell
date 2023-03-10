@@ -12,26 +12,18 @@
 
 #include "minishell.h"
 
-void ft_inint_env(char *elem1, char *elem2, t_env *node)
+void	ft_inint_env(char *elem1, char *elem2, t_env *node)
 {
 	node->key = ft_strdup(elem1);
-	// printf("node->value = %s\n", node->value);
-	// if (node->value)
-	// {
-		// free(node->value);
-		// node->value = NULL;
-	// }
 	node->value = ft_strdup(elem2);
-	// free(elem1);
-	// free(elem2);
 	node->next = NULL;
 }
 
-void environments(char **env, t_env **envir)
+void	environments(char **env, t_env **envir)
 {
-	int i;
-	char **array;
-	t_env *new_node;
+	int		i;
+	char	**array;
+	t_env	*new_node;
 
 	i = 0;
 	while (env[i])

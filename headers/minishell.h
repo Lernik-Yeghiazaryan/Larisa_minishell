@@ -109,8 +109,10 @@ void	free_node(t_node *node);
 void	free_one_node(t_node node);
 int		child_proc(t_node node, t_env **envir, char **ch_env);
 char	*ft_fill(char *str, int start, int end, char *replace);
-int     checkquotes(char *str);
-int 	dumb(t_env **en);
-
+int		checkquotes(char *str);
+int		dumb(t_env **en);
+void	shlvl(t_env **en);
+void	ft_close(int (*fd)[2], int len);
+void	add_env(char **array, t_env **en);
 
 #endif

@@ -14,7 +14,6 @@
 
 void	equal_only(char **array, t_env **en)
 {
-	t_env	*new_node;
 	t_env	*curr;
 	int		flag;
 
@@ -36,22 +35,17 @@ void	equal_only(char **array, t_env **en)
 	if (!array[1])
 		array[1] = ft_strdup("");
 	if (!flag)
-	{
-		new_node = malloc(sizeof(t_env));
-		ft_inint_env(array[0], array[1], new_node);
-		ft_lstadd_back_env(en, new_node);
-	}
-	// free_arr(array);
+		add_env(array, en);
 }
 
 void	pluse_equal(char **array, t_env **en)
 {
 	int		flag;
 	t_env	*curr;
-	// char 	*tmp;
+	char	*tmp;
 
 	flag = 0;
-	// tmp = NULL;
+	tmp = NULL;
 	curr = *en;
 	if (!array[1])
 		array[1] = ft_strdup("");
@@ -59,11 +53,9 @@ void	pluse_equal(char **array, t_env **en)
 	{
 		if (!ft_strcmp(curr->key, array[0]))
 		{
-			// curr->value  = ft_strjoin(curr->value, array[1]);
-			curr->value = ft_strjoin(curr->value, array[1]);
-			// curr->value = tmp;
-			// free(tmp);
-			// tmp = NULL;
+			tmp = ft_strjoin(curr->value, array[1]);
+			free(curr->value);
+			curr->value = tmp;
 			flag = 1;
 		}
 		curr = curr->next;
@@ -72,7 +64,6 @@ void	pluse_equal(char **array, t_env **en)
 		if (!curr && !flag)
 			equal_only(array, en);
 	}
-	// free_arr(array);
 }
 
 static void	add_only(char *array, t_env **en)
@@ -109,9 +100,7 @@ static void	cmd_one_export(char *cmd, t_env **en)
 		return ;
 	}
 	else if (ft_strnstr(cmd, "+=", ft_strlen(cmd)))
-	{
 		pluse_equal_2(cmd, en);
-	}
 	else if (ft_strnstr(cmd, "=", ft_strlen(cmd)))
 	{
 		array = ft_split_export(cmd, '=');
@@ -135,7 +124,6 @@ void	cmd_export(t_node node, t_env **en)
 	if (!node.cmd[1])
 	{
 		sort_list(en);
-		// set_exit_code("0", en);
 		return ;
 	}
 	while (node.cmd[i])

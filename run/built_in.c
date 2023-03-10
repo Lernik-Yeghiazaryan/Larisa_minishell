@@ -22,12 +22,31 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
+static int	builtin_cont(t_node node, t_env **en)
+{
+	int	status;
+
+	status = 0;
+	if (!ft_strcmp(node.cmd[0], "unset"))
+	{
+		cmd_unset(node.cmd[1], en);
+		status = get_exit_code(en);
+	}
+	else if (!ft_strcmp(node.cmd[0], "env"))
+		print_list(en);
+	else if (!ft_strcmp(node.cmd[0], "exit"))
+	{
+		cmd_exit(node.cmd, en);
+		status = get_exit_code(en);
+	}
+	return (status);
+}
+
 int	builtin(t_node node, t_env **en)
 {
 	int	status;
 
 	status = 0;
-
 	if (!ft_strcmp(node.cmd[0], "echo"))
 	{
 		cmd_echo(node, en);
@@ -42,19 +61,7 @@ int	builtin(t_node node, t_env **en)
 		cmd_export(node, en);
 		status = get_exit_code(en);
 	}
-	else if (!ft_strcmp(node.cmd[0], "unset"))
-	{
-		cmd_unset(node.cmd[1], en);
-		status = get_exit_code(en);
-	}
-	else if (!ft_strcmp(node.cmd[0], "env"))
-		print_list(en);
-
-	else if (!ft_strcmp(node.cmd[0], "exit"))
-	{
-		cmd_exit(node.cmd, en);
-		status = get_exit_code(en);
-	}
-
+	else
+		status = builtin_cont(node, en);
 	return (status);
 }

@@ -82,7 +82,7 @@ char	*ft_clean_spase_between(char *str)
 	return (res);
 }
 
-static void	ft_clean_sp_redir_2(t_node *node)
+void	ft_clean_red(t_node *node)
 {
 	int		i;
 	char	*tmp;
@@ -99,46 +99,4 @@ static void	ft_clean_sp_redir_2(t_node *node)
 		tmp = NULL;
 		i++;
 	}
-	i = 0;
-	while (node->infile && node->infile[i])
-	{
-		tmp = ft_strdup(node->infile[i]);
-		free(node->infile[i]);
-		node->infile[i] = 0;
-		node->infile[i] = ft_clean_spase_between(tmp);
-		free(tmp);
-		tmp = NULL;
-		i++;
-	}
-}
-
-void	ft_clean_sp_redir(t_node *node)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = NULL;
-	while (node->heredoc && node->heredoc[i])
-	{
-		tmp = ft_strdup(node->heredoc[i]);
-		free(node->heredoc[i]);
-		node->heredoc[i] = 0;
-		node->heredoc[i] = ft_clean_spase_between(tmp);
-		free(tmp);
-		tmp = NULL;
-		i++;
-	}
-	i = 0;
-	while (node->append && node->append[i])
-	{
-		tmp = ft_strdup(node->append[i]);
-		free(node->append[i]);
-		node->append[i] = 0;
-		node->append[i] = ft_clean_spase_between(tmp);
-		free(tmp);
-		tmp = NULL;
-		i++;
-	}
-	ft_clean_sp_redir_2(node);
 }

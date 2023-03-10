@@ -1,5 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   child_proc.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/10 18:06:39 by lgalstya          #+#    #+#             */
+/*   Updated: 2023/03/10 18:06:42 by lgalstya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 void	hidden_file(char **cmd)
 {
@@ -23,7 +34,6 @@ char	*accses_to_exec(char *cmd, char *path)
 	i = 0;
 	token = ft_split(path, ':');
 	hidden_file(&cmd);
-
 	while (token[i])
 	{
 		cmd_accs = ft_strjoin(token[i], cmd);
@@ -57,15 +67,13 @@ int	child_proc(t_node node, t_env **envir, char **ch_env)
 		not_found_error(node.cmd[0]);
 	if (node.cmd && node.cmd[0])
 		cmd = accses_to_exec(node.cmd[0], path);
-	if (node.cmd && node.cmd[0]!= NULL && (node.cmd[0][0] == '/' || node.cmd[0][0] == '.'))
+	if (node.cmd && node.cmd[0] != NULL
+		&& (node.cmd[0][0] == '/' || node.cmd[0][0] == '.'))
 		ret = execve(node.cmd[0], node.cmd, ch_env);
 	else if (node.cmd && node.cmd[0])
 		ret = execve(cmd, node.cmd, ch_env);
 	if (ret == -1 && node.cmd && node.cmd[0])
-	{
-		printf("node->cmd[0] = %s\n", node.cmd[0]);
 		not_found_error(node.cmd[0]);
-	}
 	free(cmd);
 	cmd = NULL;
 	return (ret);

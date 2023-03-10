@@ -57,12 +57,15 @@ int	child_proc(t_node node, t_env **envir, char **ch_env)
 		not_found_error(node.cmd[0]);
 	if (node.cmd && node.cmd[0])
 		cmd = accses_to_exec(node.cmd[0], path);
-	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
+	if (node.cmd && node.cmd[0]!= NULL && (node.cmd[0][0] == '/' || node.cmd[0][0] == '.'))
 		ret = execve(node.cmd[0], node.cmd, ch_env);
-	else
+	else if (node.cmd && node.cmd[0])
 		ret = execve(cmd, node.cmd, ch_env);
-	if (ret == -1)
+	if (ret == -1 && node.cmd && node.cmd[0])
+	{
+		printf("node->cmd[0] = %s\n", node.cmd[0]);
 		not_found_error(node.cmd[0]);
+	}
 	free(cmd);
 	cmd = NULL;
 	return (ret);

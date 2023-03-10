@@ -36,6 +36,7 @@ void	ignore_quotes(char *str, int *i)
 t_node	*cut_redir(t_node *node)
 {
 	int		i;
+	char	*str;
 
 	if (!node)
 		return (0);
@@ -47,7 +48,13 @@ t_node	*cut_redir(t_node *node)
 		node->readline = ft_strcut(node->readline, node->outfile[i]);
 	i = -1;
 	while (node && node->heredoc && node->heredoc[++i])
-		node->readline = ft_strcut(node->readline, node->heredoc[i]);
+	{
+		str = ft_strdup(node->readline);
+		free(node->readline);
+		node->readline = ft_strcut(str, node->heredoc[i]);
+		free(str);
+		str = 0;
+	}	
 	i = -1;
 	while (node && node->append && node->append[++i])
 		node->readline = ft_strcut(node->readline, node->append[i]);

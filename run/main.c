@@ -54,10 +54,7 @@ void free_node(t_node *node)
 	{
 		tmp = node->next;
 		if (node->heredoc)
-		{
-			// printf("LALALALAL\n");
 			free_arr(node->heredoc);
-		}
 		if (node->append)
 			free_arr(node->append);
 		if (node->outfile)

@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void cmd_no_infile(char *file, t_node *node)
+void	cmd_no_infile(char *file, t_node *node)
 {
-	int fd;
+	int	fd;
 
 	fd = open(++file, O_RDONLY, 0644);
 	if (fd < 0)
@@ -29,9 +29,9 @@ void cmd_no_infile(char *file, t_node *node)
 	close(fd);
 }
 
-void cmd_infile(char *file, t_node *node)
+void	cmd_infile(char *file, t_node *node)
 {
-	int fd;
+	int	fd;
 
 	fd = open(++file, O_RDONLY, 0644);
 	if (fd < 0)
@@ -40,16 +40,16 @@ void cmd_infile(char *file, t_node *node)
 		{
 			node->inf_stat = -1;
 			perror("minishell : no such file or directori");
-			return;
+			return ;
 		}
 	}
 	dup2(fd, 0);
 	close(fd);
 }
 
-void cmd_outfile(char *file, int flag)
+void	cmd_outfile(char *file, int flag)
 {
-	int fd;
+	int	fd;
 
 	fd = open(++file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (flag == 1)
@@ -57,9 +57,9 @@ void cmd_outfile(char *file, int flag)
 	close(fd);
 }
 
-void cmd_append(char *file, int flag)
+void	cmd_append(char *file, int flag)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file + 2, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (flag == 1)

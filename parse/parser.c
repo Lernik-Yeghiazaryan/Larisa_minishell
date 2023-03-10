@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:25:38 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/03/07 15:23:55 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:34:20 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	initialize(t_node	*head)
 
 t_node	*parser(t_node *head, t_env **envir)
 {
-	t_node *node;
+	t_node	*node;
 
 	node = head;
-	if (check_quote_2(head, envir) || unexpected_tokens(head, envir)) 
+	if (check_quote_2(head, envir) || unexpected_tokens(head, envir))
 	{
 		free_node(head);
 		return (0);
@@ -49,10 +49,9 @@ t_node	*parser(t_node *head, t_env **envir)
 	initialize(head);
 	while (node)
 	{
-	ft_clean_sp_redir(node);
-	ft_clean_spasec(node, envir);
+		ft_clean_sp_redir(node);
+		ft_clean_spasec(node, envir);
 		node = node->next;
 	}
 	return (head);
 }
-

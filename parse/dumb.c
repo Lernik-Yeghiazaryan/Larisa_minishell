@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   dumb.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tyenokya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/09 16:26:33 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/25 17:44:11 by tyenokya         ###   ########.fr       */
+/*   Created: 2023/03/10 14:56:10 by tyenokya          #+#    #+#             */
+/*   Updated: 2023/03/10 15:29:29 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handler(int sig)
+int	dumb(t_env **en)
 {
-	(void)sig;
-	rl_replace_line("", 0);
-	rl_done = 1;
-	g_exit_code = 1234;
+	ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+	set_exit_code("258", en);
+	return (1);
 }

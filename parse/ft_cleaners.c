@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 17:33:18 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/25 18:00:14 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:15:19 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	**ft_clean(char **str, t_env **envir)
 	t = 0;
 	while (str && str[i])
 	{
-		// printf("str[%d] = %s\n", i, str[i]);
 		str[i] = ft_strtrim(str[i], SPACES, &f);
 		str[i] = ft_strtrim(str[i], "\'", &t);
 		if (t)
@@ -43,16 +42,16 @@ void	ft_clean_spasec(t_node *head, t_env **envir)
 	t_node	*node;
 
 	node = head;
-		if (node->cmd)
-			node->cmd = ft_clean(node->cmd, envir);
-		if (node->infile[0])
-			node->infile = ft_clean(node->infile, envir);
-		if (node->outfile[0])
-			node->outfile = ft_clean(node->outfile, envir);
-		if (node->append[0])
-			node->append = ft_clean(node->append, envir);
-		if (node->heredoc[0])
-			node->heredoc = ft_clean(node->heredoc, envir);
+	if (node->cmd)
+		node->cmd = ft_clean(node->cmd, envir);
+	if (node->infile[0])
+		node->infile = ft_clean(node->infile, envir);
+	if (node->outfile[0])
+		node->outfile = ft_clean(node->outfile, envir);
+	if (node->append[0])
+		node->append = ft_clean(node->append, envir);
+	if (node->heredoc[0])
+		node->heredoc = ft_clean(node->heredoc, envir);
 }
 
 char	*ft_clean_spase_between(char *str)
@@ -85,22 +84,19 @@ char	*ft_clean_spase_between(char *str)
 
 static void	ft_clean_sp_redir_2(t_node *node)
 {
-	int	i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
-	// printf("ka3 = %s\n", node->outfile[0]);
 	while (node->outfile && node->outfile[i])
 	{
-		// printf("before outfile = %s\n", node->outfile[i]);
 		tmp = ft_strdup(node->outfile[i]);
 		free(node->outfile[i]);
 		node->outfile[i] = 0;
 		node->outfile[i] = ft_clean_spase_between(tmp);
 		free(tmp);
 		tmp = NULL;
-		// printf("after outfile = %s\n", node->outfile[i]);
 		i++;
 	}
 	i = 0;
@@ -136,14 +132,12 @@ void	ft_clean_sp_redir(t_node *node)
 	i = 0;
 	while (node->append && node->append[i])
 	{
-		// printf("before append = %s\n", node->append[i]);
 		tmp = ft_strdup(node->append[i]);
 		free(node->append[i]);
 		node->append[i] = 0;
 		node->append[i] = ft_clean_spase_between(tmp);
 		free(tmp);
 		tmp = NULL;
-		// printf("after append = %s\n", node->append[i]);
 		i++;
 	}
 	ft_clean_sp_redir_2(node);

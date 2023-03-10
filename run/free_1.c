@@ -20,3 +20,19 @@ void	ft_free_str(char *cmd)
 		cmd = 0;
 	}
 }
+
+void	free_one_node(t_node node)
+{
+	if (node.heredoc)
+		free_arr(node.heredoc);
+	if (node.append)
+		free_arr(node.append);
+	if (node.outfile)
+		free_arr(node.outfile);
+	if (node.infile)
+		free_arr(node.infile);
+	if (node.cmd)
+		free_arr(node.cmd);
+	if (node.readline)
+		free(node.readline);
+}

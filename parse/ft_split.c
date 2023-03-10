@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:38:27 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/02/25 18:22:46 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:18:29 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_wcount(char *s, char c)
 			count++;
 		i++;
 	}
-	//printf("count = %d\n", count);
 	return (count);
 }
 
@@ -61,16 +60,14 @@ char	**pars_ft_split(char *s, char c)
 	int		i;
 	int		t;
 	int		h;
-	int		count;
 	char	**sp;
 
 	i = -1;
 	h = 0;
-	count = ft_wcount(s, c);
-	sp = malloc(sizeof(char *) * (count + 1));
+	sp = malloc(sizeof(char *) * (ft_wcount(s, c) + 1));
 	if (!s || !sp)
 		return (NULL);
-	while (++i < count)
+	while (++i < ft_wcount(s, c))
 	{
 		while (s[h] && s[h] == ' ')
 			++h;
@@ -89,4 +86,3 @@ char	**pars_ft_split(char *s, char c)
 	sp[i] = 0;
 	return (sp);
 }
-

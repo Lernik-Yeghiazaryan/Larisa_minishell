@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 16:59:37 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/24 15:16:22 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:33:18 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	pipe_count(char *line)
 	}
 	return (count);
 }
-int ft_check_pipe(char *str)
+
+int	ft_check_pipe(char *str)
 {
 	int	i;
 
@@ -60,7 +61,6 @@ int ft_check_pipe(char *str)
 		++i;
 	}
 	return (0);
-	
 }
 
 static int	checks(char *str, t_env **en)
@@ -97,9 +97,7 @@ void	lexer(t_node **node, char *str, t_env **en)
 		new->readline = ft_strdup(sp[i]);
 		new->next = NULL;
 		// init_readline(sp[i], new);//stex petqa listnel nodenel maqrel ete new-n chi stexcvum
-		// printf("///readline = %s\n", new->readline);
 		ft_list_add_back(node, new);
-		// printf("AKSLSKLDJLJDLAD\n");
 		++i;
 	}
 	(*node)->counts.s_pipe = pipe_count(str);

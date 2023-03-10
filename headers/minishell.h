@@ -101,11 +101,16 @@ int		get_exit_code(t_env **en);
 char	*change_doll(char *str, t_env **en);
 int		ft_isalpha(int c);
 void	ft_putstr_fd(char *s, int fd);
-void	not_found_error(char *cmd, t_env **en);
+void	not_found_error(char *cmd);
 void	ft_heredoc(t_node *node);
 void	*free_arr(char **s);
 int		command_for_pipe(t_node node, t_env **envir);
 void	free_node(t_node *node);
 void	free_one_node(t_node node);
+int		child_proc(t_node node, t_env **envir, char **ch_env);
+char	*ft_fill(char *str, int start, int end, char *replace);
+int     checkquotes(char *str);
+int 	dumb(t_env **en);
+
 
 #endif

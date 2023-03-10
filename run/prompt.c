@@ -12,76 +12,15 @@
 
 #include "minishell.h"
 
-char	*accses_to_exec(char *cmd, char *path)
+void	exit_for_norm(t_env **env)
 {
-	int		i;
-	char	**token;
-	char	*cmd_accs;
-	char	*tmp;
-
-	i = 0;
-	tmp = NULL;
-	token = ft_split(path, ':');
-	if (cmd[0] != '.')
-	{
-		tmp = ft_strjoin("/", cmd);
-		cmd = tmp;
-		// free(tmp);
-		// tmp = NULL;
-	}
-	while (token[i])
-	{
-		cmd_accs = ft_strjoin(token[i], cmd);
-		// cmd_accs = tmp;
-		// free(tmp);
-		// tmp = NULL;
-		// printf("cmd = %s\n", cmd);
-		// printf("token[%d] = %s\n", i, token[i]);
-		// printf("cmd_accs = %s\n", cmd_accs);
-		if (access(cmd_accs, 0) == 0)
-			return (cmd_accs);
-		else
-		{
-			//es em avlacrel
-			free(cmd_accs);
-			cmd_accs = NULL;
-		}
-		i++;
-	}
-	free_arr(token);
-	return (cmd);
-}
-
-static int	child_proc(t_node node, t_env **envir, char **ch_env)
-{
-	char	*path;
-	char	*cmd = NULL;
-	int		ret;
-
-	rl_catch_signals = 0;
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGTSTP, SIG_IGN);
-	ret = 0;
-	path = search_list(*envir, "PATH");
-	if (!path)
-		not_found_error(node.cmd[0], envir);
-	if (node.cmd && node.cmd[0])
-		cmd = accses_to_exec(node.cmd[0], path);
-	if (node.cmd[0][0] == '/' || node.cmd[0][0] == '.')
-		ret = execve(node.cmd[0], node.cmd, ch_env);
-	else
-		ret = execve(cmd, node.cmd, ch_env);
-	if (ret == -1)
-		not_found_error(node.cmd[0], envir);
-	free(cmd);
-	cmd = NULL;
-	return (ret);
+	(void)env;
+	exit(127);
 }
 
 void	status_wait(int status, int exec_status, t_env **en)
 {
-	char *str;
+	char	*str;
 
 	str = ft_itoa(WEXITSTATUS(status));
 	if (WIFEXITED(status) && exec_status == 0)
@@ -93,27 +32,18 @@ void	status_wait(int status, int exec_status, t_env **en)
 	}
 }
 
-void	exit_for_norm(t_env **env)
+int	ft_fork(int pid, t_node node, t_env **envir, char	**ch_env)
 {
-	// set_exit_code("127", env);
-	(void)env;
-	exit(127);
-}
+	int	exec_status;
 
-void	free_one_node(t_node node)
-{
-	if (node.heredoc)
-		free_arr(node.heredoc);
-	if (node.append)
-		free_arr(node.append);
-	if (node.outfile)
-		free_arr(node.outfile);
-	if (node.infile)
-		free_arr(node.infile);
-	if (node.cmd)
-		free_arr(node.cmd);
-	if (node.readline)
-		free(node.readline);
+	exec_status = 0;
+	if (pid == 0)
+	{
+		exec_status = child_proc(node, envir, ch_env);
+		if (exec_status < 0)
+			exit_for_norm(envir);
+	}
+	return (exec_status);
 }
 
 int	commands(t_node node, t_env **envir)
@@ -130,29 +60,16 @@ int	commands(t_node node, t_env **envir)
 		exec_status = builtin(node, envir);
 	else if (node.inf_stat != -1)
 	{
-
 		pid = fork();
-		if (pid == 0)
-		{
-			exec_status = child_proc(node, envir, ch_env);
-			if (exec_status < 0)
-			{
-				// free_one_node(node);
-				exit_for_norm(envir);
-			}
-		}
+		exec_status = ft_fork(pid, node, envir, ch_env);
 		wait(&status);
 		status_wait(status, exec_status, envir);
 		signal(SIGINT, &handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
-
-	// if (exec_status == -1)
-	// 	free_node(&node);
 	free_arr(ch_env);
 	return (exec_status);
 }
-
 
 int	command_for_pipe(t_node node, t_env **envir)
 {
@@ -171,7 +88,6 @@ int	command_for_pipe(t_node node, t_env **envir)
 		signal(SIGINT, &handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
-
 	free_arr(ch_env);
 	printf("exec_status is %d\n", exec_status);
 	if (exec_status < 0)

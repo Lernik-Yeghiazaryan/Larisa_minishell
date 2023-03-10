@@ -6,7 +6,7 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 14:34:10 by tyenokya          #+#    #+#             */
-/*   Updated: 2023/02/25 18:23:52 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:26:40 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ int	initial_nodes(t_node *node)
 	}
 	node = cut_redir(node);
 	if (node->readline)
-	{
-	node->cmd = pars_ft_split(node->readline, ' '); // sranica vor ( "aaaa   "a ) chi ashxatum
-	ft_wcount(node->readline, ' ');
-	}
+		node->cmd = pars_ft_split(node->readline, ' ');
 	return (1);
 }

@@ -6,12 +6,11 @@
 /*   By: tyenokya <tyenokya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:18:26 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/19 12:53:20 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:35:49 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static	void	*pars_ft_memchr(void *s, int c, int n)
 {

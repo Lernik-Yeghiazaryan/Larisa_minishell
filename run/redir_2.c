@@ -91,5 +91,4 @@ void	ft_redirs(t_node *node)
 	ft_infile(node);
 	ft_outfile(node);
 	ft_append(node);
-
 }

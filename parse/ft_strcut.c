@@ -6,7 +6,7 @@
 /*   By: lgalstya <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:38:13 by lgalstya          #+#    #+#             */
-/*   Updated: 2023/02/17 15:58:56 by tyenokya         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:07:44 by tyenokya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,15 @@ char	*ft_strcut(char *readline, char *str)
 	int		find;
 	char	*cmdline;
 
-	i = 0;
+	i = -1;
 	k = 0;
-	if (!readline || !str)
-		return (NULL);
 	find = ft_find(readline, str);
-	if (!find)
+	if (!find || !readline || !str)
 		return (0);
 	cmdline = ft_calloc(sizeof(char),
 			(ft_strlen(readline) - ft_strlen(str)) + 1);
-	while (readline[i] && i < find)
-	{
+	while (++i < find && readline[i])
 		cmdline[i] = readline[i];
-		i++;
-	}
 	k = i + ft_strlen(str);
 	while (readline[k] && i < ft_strlen(readline) - ft_strlen(str))
 	{
